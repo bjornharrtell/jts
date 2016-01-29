@@ -110,7 +110,7 @@ public class CommonBitsRemover
     geom.geometryChanged();
   }
 
-  class CommonCoordinateFilter
+  static class CommonCoordinateFilter
       implements CoordinateFilter
   {
     private CommonBits commonBitsX = new CommonBits();
@@ -130,7 +130,7 @@ public class CommonBitsRemover
     }
   }
 
-  class Translater
+  static class Translater
       implements CoordinateSequenceFilter
   {
     Coordinate trans = null;

@@ -78,7 +78,7 @@ public class SimpleMinimumClearance
     if (minClearancePts != null) return;
     minClearancePts = new Coordinate[2];
     minClearance = Double.MAX_VALUE;
-    inputGeom.apply(new VertexCoordinateFilter());
+    inputGeom.apply(new VertexCoordinateFilter(this));
   }
   
   private void updateClearance(double candidateValue, Coordinate p0, Coordinate p1)
@@ -101,26 +101,30 @@ public class SimpleMinimumClearance
     }
   }
   
-  private class VertexCoordinateFilter 
+  private static class VertexCoordinateFilter 
   implements CoordinateFilter
   {
-    public VertexCoordinateFilter()
+    SimpleMinimumClearance smc;
+    
+    public VertexCoordinateFilter(SimpleMinimumClearance smc)
     {
-      
+      this.smc = smc;
     }
     
     public void filter(Coordinate coord) {
-      inputGeom.apply(new ComputeMCCoordinateSequenceFilter(coord));
+      smc.inputGeom.apply(new ComputeMCCoordinateSequenceFilter(smc, coord));
     }
   }
   
-  private class ComputeMCCoordinateSequenceFilter 
+  private static class ComputeMCCoordinateSequenceFilter 
   implements CoordinateSequenceFilter 
   {
+    SimpleMinimumClearance smc;
     private Coordinate queryPt;
     
-    public ComputeMCCoordinateSequenceFilter(Coordinate queryPt)
+    public ComputeMCCoordinateSequenceFilter(SimpleMinimumClearance smc, Coordinate queryPt)
     {
+      this.smc = smc;
       this.queryPt = queryPt;
     }
     public void filter(CoordinateSequence seq, int i) {
@@ -137,7 +141,7 @@ public class SimpleMinimumClearance
     {
       double vertexDist = vertex.distance(queryPt);
       if (vertexDist > 0) {
-        updateClearance(vertexDist, queryPt, vertex);
+        smc.updateClearance(vertexDist, queryPt, vertex);
       }
     }
     
@@ -147,7 +151,7 @@ public class SimpleMinimumClearance
           return;
         double segDist = CGAlgorithms.distancePointLine(queryPt, seg1, seg0);
         if (segDist > 0) 
-          updateClearance(segDist, queryPt, seg1, seg0);
+          smc.updateClearance(segDist, queryPt, seg1, seg0);
     }
     
     public boolean isDone() {
