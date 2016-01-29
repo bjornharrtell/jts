@@ -267,6 +267,10 @@ public class LineString
     ls.points = (CoordinateSequence) points.clone();
     return ls;
   }
+  
+  public LineString copy() {
+    return new LineString(points.copy(), factory);
+  }
 
   /**
    * Normalizes a LineString.  A normalized linestring

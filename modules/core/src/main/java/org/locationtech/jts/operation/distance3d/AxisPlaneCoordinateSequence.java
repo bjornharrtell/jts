@@ -136,5 +136,9 @@ public class AxisPlaneCoordinateSequence implements CoordinateSequence {
 	{
 		throw new UnsupportedOperationException();		
 	}
+	
+	public CoordinateSequence copy() {
+    throw new UnsupportedOperationException();
+  }
 
 }

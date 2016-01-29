@@ -168,4 +168,6 @@ public interface CoordinateSequence
    * @return a copy of the coordinate sequence containing copies of all points
    */
   Object clone();
+  
+  CoordinateSequence copy();
 }

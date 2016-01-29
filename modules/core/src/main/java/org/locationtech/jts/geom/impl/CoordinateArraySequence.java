@@ -197,6 +197,15 @@ public class CoordinateArraySequence
     }
     return new CoordinateArraySequence(cloneCoordinates, dimension);
   }
+  
+  public CoordinateArraySequence copy() {
+    Coordinate[] cloneCoordinates = new Coordinate[size()];
+    for (int i = 0; i < coordinates.length; i++) {
+      cloneCoordinates[i] = (Coordinate) coordinates[i].copy();
+    }
+    return new CoordinateArraySequence(cloneCoordinates, dimension);
+  }
+  
   /**
    * Returns the size of the coordinate sequence
    *

@@ -96,7 +96,11 @@ public class LinearRing extends LineString
       		+ getCoordinateSequence().size() + " - must be 0 or >= 4)");
     }
   }
-
+  
+  public LinearRing copy() {
+    return new LinearRing(points.copy(), factory);
+  }
+  
   /**
    * Returns <code>Dimension.FALSE</code>, since by definition LinearRings do
    * not have a boundary.

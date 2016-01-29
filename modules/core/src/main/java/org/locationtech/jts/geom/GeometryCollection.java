@@ -224,6 +224,14 @@ public class GeometryCollection extends Geometry {
     }
     return gc;// return the clone
   }
+  
+  public GeometryCollection copy() {
+    Geometry[] geometries = new Geometry[this.geometries.length];
+    for (int i = 0; i < geometries.length; i++) {
+      geometries[i] = this.geometries[i].copy();
+    }
+    return new GeometryCollection(geometries, factory);
+  }
 
   public void normalize() {
     for (int i = 0; i < geometries.length; i++) {

@@ -169,7 +169,7 @@ public class CascadedPolygonUnion
   	for (Iterator i = geoms.iterator(); i.hasNext(); ) {
   		Geometry g = (Geometry) i.next();
   		if (union == null)
-  			union = (Geometry) g.clone();
+  			union = (Geometry) g.copy();
   		else
   			union = union.union(g);
   	}
@@ -285,9 +285,9 @@ public class CascadedPolygonUnion
   		return null;
 
   	if (g0 == null)
-  		return (Geometry) g1.clone();
+  		return (Geometry) g1.copy();
   	if (g1 == null)
-  		return (Geometry) g0.clone();
+  		return (Geometry) g0.copy();
   	
   	return unionOptimized(g0, g1);
   }

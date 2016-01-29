@@ -67,6 +67,14 @@ public class MultiPolygon
   public MultiPolygon(Polygon[] polygons, GeometryFactory factory) {
     super(polygons, factory);
   }
+  
+  public MultiPolygon copy() {
+    Polygon[] polygons = new Polygon[this.geometries.length];
+    for (int i = 0; i < polygons.length; i++) {
+      polygons[i] = (Polygon) this.geometries[i].copy();
+    }
+    return new MultiPolygon(polygons, factory);
+  }
 
   public int getDimension() {
     return 2;

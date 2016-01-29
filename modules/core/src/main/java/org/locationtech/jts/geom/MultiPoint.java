@@ -44,6 +44,14 @@ public class MultiPoint
   public MultiPoint(Point[] points, PrecisionModel precisionModel, int SRID) {
     super(points, new GeometryFactory(precisionModel, SRID));
   }
+  
+  public MultiPoint copy() {
+    Point[] points = new Point[this.geometries.length];
+    for (int i = 0; i < points.length; i++) {
+      points[i] = (Point) this.geometries[i].copy();
+    }
+    return new MultiPoint(points, factory);
+  }
 
   /**
    *@param  points          the <code>Point</code>s for this <code>MultiPoint</code>

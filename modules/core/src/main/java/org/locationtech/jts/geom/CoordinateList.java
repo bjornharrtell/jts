@@ -220,7 +220,7 @@ public class CoordinateList
   public Object clone() {
       CoordinateList clone = (CoordinateList) super.clone();
       for (int i = 0; i < this.size(); i++) {
-          clone.add(i, ((Coordinate) this.get(i)).clone());
+          clone.add(i, ((Coordinate) this.get(i)).copy());
       }
       return clone;
   }

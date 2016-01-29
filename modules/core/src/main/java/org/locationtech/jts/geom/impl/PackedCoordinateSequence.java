@@ -309,6 +309,12 @@ public abstract class PackedCoordinateSequence
       System.arraycopy(coords, 0, clone, 0, coords.length);
       return new Double(clone, dimension);
     }
+    
+    public Double copy() {
+      double[] clone = new double[coords.length];
+      System.arraycopy(coords, 0, clone, 0, coords.length);
+      return new Double(clone, dimension);
+    }
 
     /**
      * @see org.locationtech.jts.geom.CoordinateSequence#getOrdinate(int, int)
@@ -441,6 +447,12 @@ public abstract class PackedCoordinateSequence
      * @see java.lang.Object#clone()
      */
     public Object clone() {
+      float[] clone = new float[coords.length];
+      System.arraycopy(coords, 0, clone, 0, coords.length);
+      return new Float(clone, dimension);
+    }
+    
+    public Float copy() {
       float[] clone = new float[coords.length];
       System.arraycopy(coords, 0, clone, 0, coords.length);
       return new Float(clone, dimension);

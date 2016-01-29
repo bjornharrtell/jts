@@ -151,6 +151,15 @@ class DefaultCoordinateSequence
     }
     return new DefaultCoordinateSequence(cloneCoordinates);
   }
+  
+  public DefaultCoordinateSequence copy() {
+    Coordinate[] cloneCoordinates = new Coordinate[size()];
+    for (int i = 0; i < coordinates.length; i++) {
+      cloneCoordinates[i] = (Coordinate) coordinates[i].copy();
+    }
+    return new DefaultCoordinateSequence(cloneCoordinates);
+  }
+  
   /**
    * Returns the size of the coordinate sequence
    *

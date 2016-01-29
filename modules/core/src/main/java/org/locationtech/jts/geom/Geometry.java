@@ -1367,8 +1367,8 @@ public abstract class Geometry
         return OverlayOp.createEmptyResult(OverlayOp.UNION, this, other, factory);
         
     // special case: if either input is empty ==> other input
-      if (this.isEmpty()) return (Geometry) other.clone();
-      if (other.isEmpty()) return (Geometry) clone();
+      if (this.isEmpty()) return (Geometry) other.copy();
+      if (other.isEmpty()) return (Geometry) copy();
     }
     
     // TODO: optimize if envelopes of geometries do not intersect
@@ -1399,7 +1399,7 @@ public abstract class Geometry
   {
     // special case: if A.isEmpty ==> empty; if B.isEmpty ==> A
     if (this.isEmpty()) return OverlayOp.createEmptyResult(OverlayOp.DIFFERENCE, this, other, factory);
-    if (other.isEmpty()) return (Geometry) clone();
+    if (other.isEmpty()) return (Geometry) copy();
 
     checkNotGeometryCollection(this);
     checkNotGeometryCollection(other);
@@ -1433,8 +1433,8 @@ public abstract class Geometry
         return OverlayOp.createEmptyResult(OverlayOp.SYMDIFFERENCE, this, other, factory);
         
     // special case: if either input is empty ==> result = other arg
-      if (this.isEmpty()) return (Geometry) other.clone();
-      if (other.isEmpty()) return (Geometry) clone();
+      if (this.isEmpty()) return (Geometry) other.copy();
+      if (other.isEmpty()) return (Geometry) copy();
     }
 
     checkNotGeometryCollection(this);
@@ -1616,6 +1616,8 @@ public abstract class Geometry
       return null;
     }
   }
+  
+  abstract public Geometry copy();
 
   /**
    *  Converts this <code>Geometry</code> to <b>normal form</b> (or <b>
@@ -1643,7 +1645,7 @@ public abstract class Geometry
    */
   public Geometry norm()
   {
-    Geometry copy = (Geometry) clone();
+    Geometry copy = (Geometry) copy();
     copy.normalize();
     return copy;
   }

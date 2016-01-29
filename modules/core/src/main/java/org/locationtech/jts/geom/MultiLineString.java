@@ -56,6 +56,14 @@ public class MultiLineString
   public MultiLineString(LineString[] lineStrings, GeometryFactory factory) {
     super(lineStrings, factory);
   }
+  
+  public MultiLineString copy() {
+    LineString[] lineStrings = new LineString[this.geometries.length];
+    for (int i = 0; i < lineStrings.length; i++) {
+      lineStrings[i] = (LineString) this.geometries[i].copy();
+    }
+    return new MultiLineString(lineStrings, factory);
+  }
 
   public int getDimension() {
     return 1;

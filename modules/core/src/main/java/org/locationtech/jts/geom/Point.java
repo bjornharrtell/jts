@@ -188,10 +188,14 @@ public class Point
     p.coordinates = (CoordinateSequence) coordinates.clone();
     return p;// return the clone
   }
+  
+  public Point copy() {
+    return new Point(coordinates.copy(), factory);
+  }
 
   public Geometry reverse()
   {
-    return (Geometry) clone();
+    return (Geometry) copy();
   }
   
   public void normalize() 

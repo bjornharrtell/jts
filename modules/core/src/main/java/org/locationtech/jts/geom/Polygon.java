@@ -361,6 +361,15 @@ public class Polygon
     }
     return poly;// return the clone
   }
+  
+  public Polygon copy() {
+    LinearRing shell = this.shell.copy();
+    LinearRing[] holes = new LinearRing[this.holes.length];
+    for (int i = 0; i < holes.length; i++) {
+      holes[i] = this.holes[i].copy();
+    }
+    return new Polygon(shell, holes, factory);
+  }
 
   public Geometry convexHull() {
     return getExteriorRing().convexHull();
@@ -424,7 +433,7 @@ public class Polygon
 
   public Geometry reverse()
   {
-    Polygon poly = (Polygon) super.clone();
+    Polygon poly = (Polygon) copy();
     poly.shell = (LinearRing) ((LinearRing) shell.clone()).reverse();
     poly.holes = new LinearRing[holes.length];
     for (int i = 0; i < holes.length; i++) {

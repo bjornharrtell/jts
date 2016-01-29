@@ -125,7 +125,7 @@ public class TopologyValidationError {
   {
     this.errorType = errorType;
     if (pt != null)
-      this.pt = (Coordinate) pt.clone();
+      this.pt = (Coordinate) pt.copy();
   }
 
   /**
