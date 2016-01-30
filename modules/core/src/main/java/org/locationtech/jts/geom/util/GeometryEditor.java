@@ -180,7 +180,7 @@ public class GeometryEditor
     LinearRing shell = (LinearRing) edit(newPolygon.getExteriorRing(), operation);
     if (shell == null || shell.isEmpty()) {
       //RemoveSelectedPlugIn relies on this behaviour. [Jon Aquino]
-      return factory.createPolygon(null, null);
+      return factory.createPolygon();
     }
 
     ArrayList holes = new ArrayList();
@@ -292,9 +292,11 @@ public class GeometryEditor
       if (geometry instanceof Point) {
         Coordinate[] newCoordinates = edit(geometry.getCoordinates(),
             geometry);
-
-        return factory.createPoint((newCoordinates.length > 0)
-                                   ? newCoordinates[0] : null);
+        if (newCoordinates.length > 0) {
+          return factory.createPoint(newCoordinates[0]);
+        } else {
+          return factory.createPoint();
+        }
       }
 
       return geometry;

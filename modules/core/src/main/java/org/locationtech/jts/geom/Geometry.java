@@ -519,7 +519,7 @@ public abstract class Geometry
   public Point getCentroid()
   {
     if (isEmpty()) 
-      return factory.createPoint((Coordinate) null);
+      return factory.createPoint();
     Coordinate centPt = Centroid.getCentroid(this);
     return createPointFromInternalCoord(centPt, this);
   }
@@ -537,7 +537,7 @@ public abstract class Geometry
   public Point getInteriorPoint()
   {
     if (isEmpty()) 
-      return factory.createPoint((Coordinate) null);
+      return factory.createPoint();
     Coordinate interiorPt = null;
     int dim = getDimension();
     if (dim == 0) {

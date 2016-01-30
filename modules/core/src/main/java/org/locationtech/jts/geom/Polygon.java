@@ -116,7 +116,7 @@ public class Polygon
   public Polygon(LinearRing shell, LinearRing[] holes, GeometryFactory factory) {
     super(factory);
     if (shell == null) {
-      shell = getFactory().createLinearRing((CoordinateSequence)null);
+      shell = getFactory().createLinearRing();
     }
     if (holes == null) {
       holes = new LinearRing[]{};
@@ -275,7 +275,7 @@ public class Polygon
    */
   public Geometry getBoundary() {
     if (isEmpty()) {
-      return getFactory().createMultiLineString(null);
+      return getFactory().createMultiLineString();
     }
     LinearRing[] rings = new LinearRing[holes.length + 1];
     rings[0] = shell;

@@ -273,7 +273,7 @@ public class UnaryUnionOp
    */
 	private Geometry unionNoOpt(Geometry g0)
 	{
-    Geometry empty = geomFact.createPoint((Coordinate) null);
+    Geometry empty = geomFact.createPoint();
 		return SnapIfNeededOverlayOp.overlayOp(g0, empty, OverlayOp.UNION);
 	}
 	

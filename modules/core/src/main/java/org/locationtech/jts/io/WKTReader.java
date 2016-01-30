@@ -502,7 +502,7 @@ public class WKTReader
   private Point readPointText() throws IOException, ParseException {
     String nextToken = getNextEmptyOrOpener();
     if (nextToken.equals(EMPTY)) {
-      return geometryFactory.createPoint((Coordinate)null);
+      return geometryFactory.createPoint();
     }
     Point point = geometryFactory.createPoint(getPreciseCoordinate());
     getNextCloser();
