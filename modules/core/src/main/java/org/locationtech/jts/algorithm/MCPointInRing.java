@@ -41,18 +41,20 @@ import org.locationtech.jts.index.chain.MonotoneChainSelectAction;
  */
 public class MCPointInRing   implements PointInRing {
 
-  class MCSelecter extends MonotoneChainSelectAction
+  static class MCSelecter extends MonotoneChainSelectAction
   {
+    MCPointInRing mcp;
     Coordinate p;
 
-    public MCSelecter(Coordinate p)
+    public MCSelecter(MCPointInRing mcp, Coordinate p)
     {
+      this.mcp = mcp;
       this.p = p;
     }
 
     public void select(LineSegment ls)
     {
-      testLineSegment(p, ls);
+      mcp.testLineSegment(p, ls);
     }
   }
 
@@ -97,7 +99,7 @@ public class MCPointInRing   implements PointInRing {
     List segs = tree.query(interval);
 //System.out.println("query size = " + segs.size());
 
-    MCSelecter mcSelecter = new MCSelecter(pt);
+    MCSelecter mcSelecter = new MCSelecter(this, pt);
     for (Iterator i = segs.iterator(); i.hasNext(); ) {
       MonotoneChain mc = (MonotoneChain) i.next();
       testMonotoneChain(rayEnv, mcSelecter, mc);

@@ -46,7 +46,7 @@ public abstract class NodeBase {
    *
    *  0 | 1
    */
-  protected Node[] subnode = new Node[2];
+  protected Node[] subnode = new Node[] { null, null };
 
   public NodeBase() {
   }
