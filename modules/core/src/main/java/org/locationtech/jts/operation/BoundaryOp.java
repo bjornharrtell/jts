@@ -98,7 +98,7 @@ public class BoundaryOp
       return geomFact.createPoint(bdyPts[0]);
     }
     // this handles 0 points case as well
-    return geomFact.createMultiPoint(bdyPts);
+    return geomFact.createMultiPointFromCoords(bdyPts);
   }
 
 /*

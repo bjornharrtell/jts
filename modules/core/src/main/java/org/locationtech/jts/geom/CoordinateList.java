@@ -68,6 +68,9 @@ public class CoordinateList
 
   public Coordinate getCoordinate(int i) { return (Coordinate) get(i); }
 
+  public void add(Coordinate coord) {
+    super.add(coord);
+  }
 
   /** 
    * Adds a section of an array of coordinates to the list.

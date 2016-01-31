@@ -387,6 +387,19 @@ public class GeometryFactory
   }
 
   /**
+   * Creates a {@link MultiPoint} using the given {@link Coordinate}s.
+   * A null or empty array will create an empty MultiPoint.
+   *
+   * @param coordinates an array (without null elements), or an empty array, or <code>null</code>
+   * @return a MultiPoint object
+   */
+  public MultiPoint createMultiPointFromCoords(Coordinate[] coordinates) {
+      return createMultiPoint(coordinates != null
+                              ? getCoordinateSequenceFactory().create(coordinates)
+                              : null);
+  }
+
+  /**
    * Creates a {@link MultiPoint} using the 
    * points in the given {@link CoordinateSequence}.
    * A <code>null</code> or empty CoordinateSequence creates an empty MultiPoint.
@@ -513,7 +526,7 @@ public class GeometryFactory
       if (partClass != geomClass) {
         isHeterogeneous = true;
       }
-      if (geom instanceof GeometryCollection)
+      if (geom.isGeometryCollectionOrDerived())
         hasGeometryCollection = true;
     }
     
@@ -522,7 +535,7 @@ public class GeometryFactory
      */
     // for the empty geometry, return an empty GeometryCollection
     if (geomClass == null) {
-      return createGeometryCollection(null);
+      return createGeometryCollection();
     }
     if (isHeterogeneous || hasGeometryCollection) {
       return createGeometryCollection(toGeometryArray(geomList));

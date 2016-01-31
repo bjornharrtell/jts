@@ -1766,7 +1766,7 @@ public abstract class Geometry
    */
   protected void checkNotGeometryCollection(Geometry g) {
     //Don't use instanceof because we want to allow subclasses
-    if (g.getClass().equals(GeometryCollection.class)) {
+    if (getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION) {
       throw new IllegalArgumentException("This method does not support GeometryCollection arguments");
     }
   }
@@ -1777,9 +1777,18 @@ public abstract class Geometry
    * 
    * @return true if this is a hetereogeneous GeometryCollection
    */
-  protected boolean isGeometryCollection()
-  {
-    return getClass().equals(org.locationtech.jts.geom.GeometryCollection.class);
+  protected boolean isGeometryCollection() {
+    return getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION;
+  }
+
+  public boolean isGeometryCollectionOrDerived() {
+    if (getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION ||
+        getSortIndex() == SORTINDEX_MULTIPOINT ||
+        getSortIndex() == SORTINDEX_MULTILINESTRING ||
+        getSortIndex() == SORTINDEX_MULTIPOLYGON) {
+      return true;
+    }
+    return false;
   }
 
   /**
