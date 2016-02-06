@@ -70,7 +70,7 @@ public class MCIndexPointSnapper
     return snap(hotPixel, null, -1);
   }
 
-  public class HotPixelSnapAction
+  public static class HotPixelSnapAction
       extends MonotoneChainSelectAction
   {
     private HotPixel hotPixel;
