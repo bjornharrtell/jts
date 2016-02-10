@@ -118,13 +118,19 @@ public class TopologyPreservingSimplifier
     linestringMap = new HashMap();
     inputGeom.apply(new LineStringMapBuilderFilter(this));
     lineSimplifier.simplify(linestringMap.values());
-    Geometry result = (new LineStringTransformer()).transform(inputGeom);
+    Geometry result = (new LineStringTransformer(linestringMap)).transform(inputGeom);
     return result;
   }
 
-  class LineStringTransformer
+  static class LineStringTransformer
       extends GeometryTransformer
   {
+    private Map linestringMap;
+    
+    public LineStringTransformer(Map linestringMap) {
+      this.linestringMap = linestringMap;
+    }
+    
     protected CoordinateSequence transformCoordinates(CoordinateSequence coords, Geometry parent)
     {
       if (coords.size() == 0) return null;

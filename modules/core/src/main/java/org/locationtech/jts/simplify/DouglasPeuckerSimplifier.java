@@ -120,17 +120,19 @@ public class DouglasPeuckerSimplifier
     // empty input produces an empty result
     if (inputGeom.isEmpty()) return (Geometry) inputGeom.copy();
     
-    return (new DPTransformer(isEnsureValidTopology)).transform(inputGeom);
+    return (new DPTransformer(isEnsureValidTopology, distanceTolerance)).transform(inputGeom);
   }
 
-class DPTransformer
+static class DPTransformer
     extends GeometryTransformer
 {
   private boolean isEnsureValidTopology = true;
+  private double distanceTolerance;
 
-	public DPTransformer(boolean isEnsureValidTopology)
+	public DPTransformer(boolean isEnsureValidTopology, double distanceTolerance)
 	{
 		this.isEnsureValidTopology = isEnsureValidTopology;
+		this.distanceTolerance = distanceTolerance;
 	}
 	
   protected CoordinateSequence transformCoordinates(CoordinateSequence coords, Geometry parent)
