@@ -190,10 +190,10 @@ public class MonotoneChain {
    */
   public void computeOverlaps(MonotoneChain mc, MonotoneChainOverlapAction mco)
   {
-    computeOverlaps(start, end, mc, mc.start, mc.end, mco);
+    computeOverlapsInternal(start, end, mc, mc.start, mc.end, mco);
   }
 
-  private void computeOverlaps(
+  private void computeOverlapsInternal(
     int start0, int end0,
     MonotoneChain mc,
     int start1, int end1,
@@ -221,12 +221,12 @@ public class MonotoneChain {
     // Assert: mid != start or end (since we checked above for end - start <= 1)
     // check terminating conditions before recursing
     if (start0 < mid0) {
-      if (start1 < mid1) computeOverlaps(start0, mid0, mc, start1,  mid1, mco);
-      if (mid1 < end1)   computeOverlaps(start0, mid0, mc, mid1,    end1, mco);
+      if (start1 < mid1) computeOverlapsInternal(start0, mid0, mc, start1,  mid1, mco);
+      if (mid1 < end1)   computeOverlapsInternal(start0, mid0, mc, mid1,    end1, mco);
     }
     if (mid0 < end0) {
-      if (start1 < mid1) computeOverlaps(mid0,   end0, mc, start1,  mid1, mco);
-      if (mid1 < end1)   computeOverlaps(mid0,   end0, mc, mid1,    end1, mco);
+      if (start1 < mid1) computeOverlapsInternal(mid0,   end0, mc, start1,  mid1, mco);
+      if (mid1 < end1)   computeOverlapsInternal(mid0,   end0, mc, mid1,    end1, mco);
     }
   }
 }
