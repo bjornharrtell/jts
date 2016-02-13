@@ -33,7 +33,7 @@ public class PrecisionReducerCoordinateOperation extends
 		this.removeCollapsed = removeCollapsed;
 	}
 	
-	public Coordinate[] edit(Coordinate[] coordinates, Geometry geom) {
+	public Coordinate[] editCoordinates(Coordinate[] coordinates, Geometry geom) {
 		if (coordinates.length == 0)
 			return null;
 
