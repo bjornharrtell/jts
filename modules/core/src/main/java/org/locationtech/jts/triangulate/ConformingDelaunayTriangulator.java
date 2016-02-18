@@ -396,13 +396,13 @@ public class ConformingDelaunayTriangulator
 			// Debug.println("Iter: " + count + "   Splits: " + splits
 			// 		+ "   Current # segments = " + segments.size());
 		} while (splits > 0 && count < MAX_SPLIT_ITER);
-		if (count == MAX_SPLIT_ITER) {
+		//if (count == MAX_SPLIT_ITER) {
 			// Debug.println("ABORTED! Too many iterations while enforcing constraints");
 			// if (!Debug.isDebugging())
 			//	throw new ConstraintEnforcementException(
 			//			"Too many splitting iterations while enforcing constraints.  Last split point was at: ",
 			//			splitPt);
-		}
+		//}
 	}
 
 	private void addConstraintVertices() {
