@@ -36,8 +36,7 @@ public class CoordinateList
   /**
    * Constructs a new list without any coordinates
    */
-  public CoordinateList()
-  { super();
+  public CoordinateList() {
   }
 
   /**
