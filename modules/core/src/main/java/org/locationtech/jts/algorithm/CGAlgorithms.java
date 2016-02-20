@@ -544,7 +544,7 @@ public class CGAlgorithms
    *          the points specifying the linestring
    * @return the length of the linestring
    */
-  public static double length(CoordinateSequence pts)
+  public static double computeLength(CoordinateSequence pts)
   {
     // optimized for processing CoordinateSequences
     int n = pts.size();

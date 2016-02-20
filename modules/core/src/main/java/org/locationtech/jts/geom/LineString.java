@@ -162,7 +162,7 @@ public class LineString
    */
   public double getLength()
   {
-   return CGAlgorithms.length(points);
+   return CGAlgorithms.computeLength(points);
   }
 
   /**
