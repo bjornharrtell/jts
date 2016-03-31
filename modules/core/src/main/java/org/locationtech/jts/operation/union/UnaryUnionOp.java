@@ -232,7 +232,7 @@ public class UnaryUnionOp
 			union = PointGeometryUnion.union((Puntal) unionPoints, unionLA);
 		
 		if (union == null)
-			return geomFact.createGeometryCollection(null);
+			return geomFact.createGeometryCollection();
 		
 		return union;
 	}
