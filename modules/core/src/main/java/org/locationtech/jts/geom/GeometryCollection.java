@@ -273,7 +273,7 @@ public class GeometryCollection extends Geometry {
 
   }
   
-  protected int getSortIndex() {
+  public int getSortIndex() {
     return Geometry.SORTINDEX_GEOMETRYCOLLECTION;
   }
   

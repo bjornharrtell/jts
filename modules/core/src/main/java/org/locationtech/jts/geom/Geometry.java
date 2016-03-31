@@ -160,14 +160,14 @@ public abstract class Geometry
 {
   private static final long serialVersionUID = 8763622679187376702L;
     
-  static final int SORTINDEX_POINT = 0;
-  static final int SORTINDEX_MULTIPOINT = 1;
-  static final int SORTINDEX_LINESTRING = 2;
-  static final int SORTINDEX_LINEARRING = 3;
-  static final int SORTINDEX_MULTILINESTRING = 4;
-  static final int SORTINDEX_POLYGON = 5;
-  static final int SORTINDEX_MULTIPOLYGON = 6;
-  static final int SORTINDEX_GEOMETRYCOLLECTION = 7;
+  public static final int SORTINDEX_POINT = 0;
+  public static final int SORTINDEX_MULTIPOINT = 1;
+  public static final int SORTINDEX_LINESTRING = 2;
+  public static final int SORTINDEX_LINEARRING = 3;
+  public static final int SORTINDEX_MULTILINESTRING = 4;
+  public static final int SORTINDEX_POLYGON = 5;
+  public static final int SORTINDEX_MULTIPOLYGON = 6;
+  public static final int SORTINDEX_GEOMETRYCOLLECTION = 7;
   
   private final static GeometryComponentFilter geometryChangedFilter = new GeometryComponentFilter() {
     public void filter(Geometry geom) {
@@ -1867,7 +1867,7 @@ public abstract class Geometry
     return a.distance(b) <= tolerance;
   }
   
-  abstract protected int getSortIndex();
+  abstract public int getSortIndex();
 
   private Point createPointFromInternalCoord(Coordinate coord, Geometry exemplar)
   {

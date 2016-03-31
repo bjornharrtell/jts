@@ -28,14 +28,7 @@ import org.locationtech.jts.geom.GeometryFilter;
  */
 public class GeometryExtracter
   implements GeometryFilter
-{
-	
-	protected static boolean isOfClass(Object o, Class clz)
-	{
-		return clz.isAssignableFrom(o.getClass());
-//		return o.getClass() == clz;
-	}
-	
+{	
   /**
    * Extracts the components of type <tt>clz</tt> from a {@link Geometry}
    * and adds them to the provided {@link List}.
@@ -43,13 +36,13 @@ public class GeometryExtracter
    * @param geom the geometry from which to extract
    * @param list the list to add the extracted elements to
    */
-  public static List extract(Geometry geom, Class clz, List list)
+  public static List extract(Geometry geom, int sortIndex, List list)
   {
-  	if (isOfClass(geom, clz)) {
+  	if (geom.getSortIndex() == sortIndex) {
   		list.add(geom);
   	}
   	else if (geom instanceof GeometryCollection) {
-  		geom.apply(new GeometryExtracter(clz, list));
+  		geom.apply(new GeometryExtracter(sortIndex, list));
   	}
   	// skip non-LineString elemental geometries
   	
@@ -62,12 +55,12 @@ public class GeometryExtracter
    * 
    * @param geom the geometry from which to extract
    */
-  public static List extract(Geometry geom, Class clz)
+  public static List extract(Geometry geom, int sortIndex)
   {
-    return extract(geom, clz, new ArrayList());
+    return extract(geom, sortIndex, new ArrayList());
   }
 
-  private Class clz;
+  private int sortIndex = -1;
   private List comps;
   
   /**
@@ -76,15 +69,15 @@ public class GeometryExtracter
    * @param clz the class of the components to extract (null means all types)
    * @param comps the list to extract into
    */
-  public GeometryExtracter(Class clz, List comps)
+  public GeometryExtracter(int sortIndex, List comps)
   {
-  	this.clz = clz;
+  	this.sortIndex = sortIndex;
     this.comps = comps;
   }
 
   public void filter(Geometry geom)
   {
-    if (clz == null || isOfClass(geom, clz)) comps.add(geom);
+    if (sortIndex == -1 || geom.getSortIndex() == sortIndex) comps.add(geom);
   }
 
 }

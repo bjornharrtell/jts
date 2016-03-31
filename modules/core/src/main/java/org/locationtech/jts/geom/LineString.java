@@ -324,7 +324,7 @@ public class LineString
     return comp.compare(this.points, line.points);
   }
   
-  protected int getSortIndex() {
+  public int getSortIndex() {
     return Geometry.SORTINDEX_LINESTRING;
   }
 

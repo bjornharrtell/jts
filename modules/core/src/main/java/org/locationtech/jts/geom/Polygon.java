@@ -412,7 +412,7 @@ public class Polygon
     return 0;
   }
   
-  protected int getSortIndex() {
+  public int getSortIndex() {
     return Geometry.SORTINDEX_POLYGON;
   }
 

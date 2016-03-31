@@ -214,7 +214,7 @@ public class Point
     return comp.compare(this.coordinates, point.coordinates);
   }
   
-  protected int getSortIndex() {
+  public int getSortIndex() {
     return Geometry.SORTINDEX_POINT;
   }
 

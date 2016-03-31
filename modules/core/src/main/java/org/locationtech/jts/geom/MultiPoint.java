@@ -108,7 +108,7 @@ public class MultiPoint
     return ((Point) geometries[n]).getCoordinate();
   }
   
-  protected int getSortIndex() {
+  public int getSortIndex() {
     return Geometry.SORTINDEX_MULTIPOINT;
   }
 

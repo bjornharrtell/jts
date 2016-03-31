@@ -130,7 +130,7 @@ public class LinearRing extends LineString
     return "LinearRing";
   }
   
-  protected int getSortIndex() {
+  public int getSortIndex() {
     return Geometry.SORTINDEX_LINEARRING;
   }
 
