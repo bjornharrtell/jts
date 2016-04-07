@@ -18,8 +18,8 @@ public class UnionOp {
     
     // TODO: optimize if envelopes of geometries do not intersect
     
-    Geometry.checkNotGeometryCollection(g);
-    Geometry.checkNotGeometryCollection(other);
+    g.checkNotGeometryCollection(g);
+    g.checkNotGeometryCollection(other);
     return SnapIfNeededOverlayOp.overlayOp(g, other, OverlayOp.UNION);
   }
 }

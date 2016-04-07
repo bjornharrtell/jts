@@ -1698,7 +1698,7 @@ public abstract class Geometry
    *@throws  IllegalArgumentException  if <code>g</code> is a <code>GeometryCollection</code>
    *      but not one of its subclasses
    */
-  public static void checkNotGeometryCollection(Geometry g) {
+  public void checkNotGeometryCollection(Geometry g) {
     //Don't use instanceof because we want to allow subclasses
     if (g.getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION) {
       throw new IllegalArgumentException("This method does not support GeometryCollection arguments");

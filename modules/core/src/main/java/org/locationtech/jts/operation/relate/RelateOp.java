@@ -80,8 +80,8 @@ public class RelateOp
   }
   
   public static IntersectionMatrix relateWithCheck(Geometry g1, Geometry g2) {
-    Geometry.checkNotGeometryCollection(g1);
-    Geometry.checkNotGeometryCollection(g2);
+    g1.checkNotGeometryCollection(g1);
+    g1.checkNotGeometryCollection(g2);
     return RelateOp.relate(g1, g2);
   }
   
