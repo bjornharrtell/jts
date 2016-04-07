@@ -35,6 +35,7 @@ import org.locationtech.jts.operation.predicate.RectangleContains;
 import org.locationtech.jts.operation.predicate.RectangleIntersects;
 import org.locationtech.jts.operation.relate.RelateOp;
 import org.locationtech.jts.operation.union.UnaryUnionOp;
+import org.locationtech.jts.operation.union.UnionOp;
 import org.locationtech.jts.operation.valid.IsValidOp;
 import org.locationtech.jts.util.Assert;
 
@@ -736,36 +737,7 @@ public abstract class Geometry
    * @see Geometry#disjoint
    */
   public boolean intersects(Geometry g) {
-
-    // short-circuit envelope test
-    if (! getEnvelopeInternal().intersects(g.getEnvelopeInternal()))
-      return false;
-
-    /**
-     * TODO: (MD) Add optimizations:
-     *
-     * - for P-A case:
-     * If P is in env(A), test for point-in-poly
-     *
-     * - for A-A case:
-     * If env(A1).overlaps(env(A2))
-     * test for overlaps via point-in-poly first (both ways)
-     * Possibly optimize selection of point to test by finding point of A1
-     * closest to centre of env(A2).
-     * (Is there a test where we shouldn't bother - e.g. if env A
-     * is much smaller than env B, maybe there's no point in testing
-     * pt(B) in env(A)?
-     */
-
-    // optimization for rectangle arguments
-    if (isRectangle()) {
-      return RectangleIntersects.intersects((Polygon) this, g);
-    }
-    if (g.isRectangle()) {
-      return RectangleIntersects.intersects((Polygon) g, this);
-    }
-    // general case
-    return relate(g).isIntersects();
+    return RelateOp.intersects(this, g);
   }
 
   /**
@@ -793,10 +765,7 @@ public abstract class Geometry
    *@return        <code>true</code> if the two <code>Geometry</code>s cross.
    */
   public boolean crosses(Geometry g) {
-    // short-circuit test
-    if (! getEnvelopeInternal().intersects(g.getEnvelopeInternal()))
-      return false;
-    return relate(g).isCrosses(getDimension(), g.getDimension());
+    return RelateOp.crosses(this, g);
   }
 
   /**
@@ -828,7 +797,7 @@ public abstract class Geometry
    * @see Geometry#coveredBy
    */
   public boolean within(Geometry g) {
-    return g.contains(this);
+    return RelateOp.within(this, g);
   }
 
   /**
@@ -859,15 +828,7 @@ public abstract class Geometry
    * @see Geometry#covers
    */
   public boolean contains(Geometry g) {
-    // short-circuit test
-    if (! getEnvelopeInternal().contains(g.getEnvelopeInternal()))
-      return false;
-    // optimization for rectangle arguments
-    if (isRectangle()) {
-      return RectangleContains.contains((Polygon) this, g);
-    }
-    // general case
-    return relate(g).isContains();
+    return RelateOp.contains(this, g);
   }
 
   /**
@@ -892,10 +853,7 @@ public abstract class Geometry
    *@return        <code>true</code> if the two <code>Geometry</code>s overlap.
    */
   public boolean overlaps(Geometry g) {
-    // short-circuit test
-    if (! getEnvelopeInternal().intersects(g.getEnvelopeInternal()))
-      return false;
-    return relate(g).isOverlaps(getDimension(), g.getDimension());
+    return RelateOp.overlaps(this, g);
   }
 
   /**
@@ -933,15 +891,7 @@ public abstract class Geometry
    * @see Geometry#coveredBy
    */
   public boolean covers(Geometry g) {
-    // short-circuit test
-    if (! getEnvelopeInternal().covers(g.getEnvelopeInternal()))
-      return false;
-    // optimization for rectangle arguments
-    if (isRectangle()) {
-    	// since we have already tested that the test envelope is covered
-      return true;
-    }
-    return relate(g).isCovers();
+    return RelateOp.covers(this,  g);
   }
 
   /**
@@ -974,7 +924,7 @@ public abstract class Geometry
    * @see Geometry#covers
    */
   public boolean coveredBy(Geometry g) {
-    return g.covers(this);
+    return RelateOp.coveredBy(this, g);
   }
 
   /**
@@ -1001,7 +951,7 @@ public abstract class Geometry
    * @see IntersectionMatrix
    */
   public boolean relate(Geometry g, String intersectionPattern) {
-    return relate(g).matches(intersectionPattern);
+    return RelateOp.relateWithCheck(this, g).matches(intersectionPattern);
   }
 
   /**
@@ -1012,9 +962,7 @@ public abstract class Geometry
    *      boundaries and exteriors of the two <code>Geometry</code>s
    */
   public IntersectionMatrix relate(Geometry g) {
-    checkNotGeometryCollection(this);
-    checkNotGeometryCollection(g);
-    return RelateOp.relate(this, g);
+    return RelateOp.relateWithCheck(this, g);
   }
 
   /**
@@ -1361,21 +1309,7 @@ public abstract class Geometry
    */
   public Geometry union(Geometry other)
   {
-    // handle empty geometry cases
-    if (this.isEmpty() || other.isEmpty()) {
-      if (this.isEmpty() && other.isEmpty())
-        return OverlayOp.createEmptyResult(OverlayOp.UNION, this, other, factory);
-        
-    // special case: if either input is empty ==> other input
-      if (this.isEmpty()) return (Geometry) other.copy();
-      if (other.isEmpty()) return (Geometry) copy();
-    }
-    
-    // TODO: optimize if envelopes of geometries do not intersect
-    
-    checkNotGeometryCollection(this);
-    checkNotGeometryCollection(other);
-    return SnapIfNeededOverlayOp.overlayOp(this, other, OverlayOp.UNION);
+    return UnionOp.union(this, other);
   }
 
   /**
@@ -1764,9 +1698,9 @@ public abstract class Geometry
    *@throws  IllegalArgumentException  if <code>g</code> is a <code>GeometryCollection</code>
    *      but not one of its subclasses
    */
-  protected void checkNotGeometryCollection(Geometry g) {
+  public static void checkNotGeometryCollection(Geometry g) {
     //Don't use instanceof because we want to allow subclasses
-    if (getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION) {
+    if (g.getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION) {
       throw new IllegalArgumentException("This method does not support GeometryCollection arguments");
     }
   }

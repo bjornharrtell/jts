@@ -19,7 +19,10 @@ package org.locationtech.jts.operation.relate;
 import org.locationtech.jts.algorithm.BoundaryNodeRule;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.IntersectionMatrix;
+import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.GeometryGraphOperation;
+import org.locationtech.jts.operation.predicate.RectangleContains;
+import org.locationtech.jts.operation.predicate.RectangleIntersects;
 
 /**
  * Implements the SFS <tt>relate()</tt> generalized spatial predicate on two {@link Geometry}s.
@@ -74,6 +77,105 @@ public class RelateOp
     RelateOp relOp = new RelateOp(a, b, boundaryNodeRule);
     IntersectionMatrix im = relOp.getIntersectionMatrix();
     return im;
+  }
+  
+  public static IntersectionMatrix relateWithCheck(Geometry g1, Geometry g2) {
+    Geometry.checkNotGeometryCollection(g1);
+    Geometry.checkNotGeometryCollection(g2);
+    return RelateOp.relate(g1, g2);
+  }
+  
+  public static boolean relate(Geometry g1, Geometry g2, String intersectionPattern) {
+    return relateWithCheck(g1, g2).matches(intersectionPattern);
+  }
+  
+  public static boolean disjoint(Geometry g1, Geometry g2) {
+    return !g1.intersects(g2);
+  }
+  
+  public static boolean touches(Geometry g1, Geometry g2) {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
+      return false;
+    return relate(g1, g2).isTouches(g1.getDimension(), g2.getDimension());
+  }
+    
+  public static boolean intersects(Geometry g1, Geometry g2) {
+    // short-circuit envelope test
+    if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
+      return false;
+
+    /**
+     * TODO: (MD) Add optimizations:
+     *
+     * - for P-A case:
+     * If P is in env(A), test for point-in-poly
+     *
+     * - for A-A case:
+     * If env(A1).overlaps(env(A2))
+     * test for overlaps via point-in-poly first (both ways)
+     * Possibly optimize selection of point to test by finding point of A1
+     * closest to centre of env(A2).
+     * (Is there a test where we shouldn't bother - e.g. if env A
+     * is much smaller than env B, maybe there's no point in testing
+     * pt(B) in env(A)?
+     */
+
+    // optimization for rectangle arguments
+    if (g1.isRectangle()) {
+      return RectangleIntersects.intersects((Polygon) g1, g2);
+    }
+    if (g2.isRectangle()) {
+      return RectangleIntersects.intersects((Polygon) g2, g1);
+    }
+    // general case
+    return RelateOp.relate(g1, g2).isIntersects();
+  }
+  
+  public static boolean crosses(Geometry g1, Geometry g2) {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
+      return false;
+    return g1.relate(g2).isCrosses(g1.getDimension(), g2.getDimension());
+  }
+  
+  public static boolean within(Geometry g1, Geometry g2) {
+    return g2.contains(g1);
+  }
+  
+  public static boolean contains(Geometry g1, Geometry g2) {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().contains(g2.getEnvelopeInternal()))
+      return false;
+    // optimization for rectangle arguments
+    if (g1.isRectangle()) {
+      return RectangleContains.contains((Polygon) g1, g2);
+    }
+    // general case
+    return relate(g1, g2).isContains();
+  }
+  
+  public static boolean overlaps(Geometry g1, Geometry g2) {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
+      return false;
+    return relate(g1, g2).isOverlaps(g1.getDimension(), g2.getDimension());
+  }
+  
+  public static boolean covers(Geometry g1, Geometry g2) {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().covers(g2.getEnvelopeInternal()))
+      return false;
+    // optimization for rectangle arguments
+    if (g1.isRectangle()) {
+      // since we have already tested that the test envelope is covered
+      return true;
+    }
+    return relate(g1, g2).isCovers();
+  }
+  
+  public static boolean coveredBy(Geometry g1, Geometry g2) {
+    return g2.covers(g1);
   }
 
   private RelateComputer _relate;
