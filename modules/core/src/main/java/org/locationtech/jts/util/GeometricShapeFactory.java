@@ -390,7 +390,7 @@ public class GeometricShapeFactory
   	return coord(x + trans.x, y + trans.y);
   }
   
-  protected class Dimensions
+  static protected class Dimensions
   {
     public Coordinate base;
     public Coordinate centre;
