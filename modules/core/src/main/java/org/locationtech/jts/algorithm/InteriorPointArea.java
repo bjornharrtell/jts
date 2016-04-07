@@ -22,6 +22,8 @@ import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.operation.overlay.OverlayOp;
+import org.locationtech.jts.operation.overlay.snap.SnapIfNeededOverlayOp;
 
 /**
  * Computes a point in the interior of an areal geometry.
@@ -118,7 +120,7 @@ public class InteriorPointArea {
       intPt = bisector.getCoordinate();
     }
     else {
-      Geometry intersections = bisector.intersection(geometry);
+      Geometry intersections = SnapIfNeededOverlayOp.overlayOp(bisector, geometry, OverlayOp.INTERSECTION);
       Geometry widestIntersection = widestGeometry(intersections);
       width = widestIntersection.getEnvelopeInternal().getWidth();
       intPt = centre(widestIntersection.getEnvelopeInternal());
