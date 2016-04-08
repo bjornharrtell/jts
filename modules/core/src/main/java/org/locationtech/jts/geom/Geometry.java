@@ -1016,7 +1016,7 @@ public abstract class Geometry
     // short-circuit test
     if (! getEnvelopeInternal().equals(g.getEnvelopeInternal()))
       return false;
-    return relate(g).isEquals(getDimension(), g.getDimension());
+    return RelateOp.relate(this,g).isEquals(getDimension(), g.getDimension());
   }
   
   /**
