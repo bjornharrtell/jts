@@ -434,10 +434,10 @@ public class Polygon
   public Geometry reverse()
   {
     Polygon poly = (Polygon) copy();
-    poly.shell = (LinearRing) ((LinearRing) shell.clone()).reverse();
+    poly.shell = (LinearRing) ((LinearRing) shell.copy()).reverse();
     poly.holes = new LinearRing[holes.length];
     for (int i = 0; i < holes.length; i++) {
-      poly.holes[i] = (LinearRing) ((LinearRing) holes[i].clone()).reverse();
+      poly.holes[i] = (LinearRing) ((LinearRing) holes[i].copy()).reverse();
     }
     return poly;// return the clone
   }
