@@ -136,7 +136,7 @@ public class LinearRing extends LineString
 
   public Geometry reverse()
   {
-    CoordinateSequence seq = (CoordinateSequence) points.clone();
+    CoordinateSequence seq = (CoordinateSequence) points.copy();
     CoordinateSequences.reverse(seq);
     LinearRing rev = getFactory().createLinearRing(seq);
     return rev;
