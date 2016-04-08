@@ -136,7 +136,7 @@ public class RelateOp
     // short-circuit test
     if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
       return false;
-    return g1.relate(g2).isCrosses(g1.getDimension(), g2.getDimension());
+    return relate(g1, g2).isCrosses(g1.getDimension(), g2.getDimension());
   }
   
   public static boolean within(Geometry g1, Geometry g2) {
@@ -175,7 +175,7 @@ public class RelateOp
   }
   
   public static boolean coveredBy(Geometry g1, Geometry g2) {
-    return g2.covers(g1);
+    return covers(g2, g1);
   }
 
   private RelateComputer _relate;
