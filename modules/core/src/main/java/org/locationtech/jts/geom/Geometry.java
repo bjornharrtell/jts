@@ -1247,30 +1247,7 @@ public abstract class Geometry
    */
   public Geometry intersection(Geometry other)
   {
-  	/**
-  	 * TODO: MD - add optimization for P-A case using Point-In-Polygon
-  	 */
-    // special case: if one input is empty ==> empty
-    if (this.isEmpty() || other.isEmpty()) 
-      return OverlayOp.createEmptyResult(OverlayOp.INTERSECTION, this, other, factory);
-
-    // compute for GCs
-    if (this.isGeometryCollection()) {
-      final Geometry g2 = other;
-      return GeometryCollectionMapper.map(
-          (GeometryCollection) this,
-          new GeometryMapper.MapOp() {
-        public Geometry map(Geometry g) {
-          return g.intersection(g2);
-        }
-      });
-    }
-//    if (isGeometryCollection(other))
-//      return other.intersection(this);
-    
-    checkNotGeometryCollection(this);
-    checkNotGeometryCollection(other);
-    return SnapIfNeededOverlayOp.overlayOp(this, other, OverlayOp.INTERSECTION);
+  	return OverlayOp.intersection(this, other);
   }
 
   /**
@@ -1331,13 +1308,7 @@ public abstract class Geometry
    */
   public Geometry difference(Geometry other)
   {
-    // special case: if A.isEmpty ==> empty; if B.isEmpty ==> A
-    if (this.isEmpty()) return OverlayOp.createEmptyResult(OverlayOp.DIFFERENCE, this, other, factory);
-    if (other.isEmpty()) return (Geometry) copy();
-
-    checkNotGeometryCollection(this);
-    checkNotGeometryCollection(other);
-    return SnapIfNeededOverlayOp.overlayOp(this, other, OverlayOp.DIFFERENCE);
+    return OverlayOp.difference(this, other);
   }
 
   /**
@@ -1360,20 +1331,7 @@ public abstract class Geometry
    */
   public Geometry symDifference(Geometry other)
   {
-    // handle empty geometry cases
-    if (this.isEmpty() || other.isEmpty()) {
-      // both empty - check dimensions
-      if (this.isEmpty() && other.isEmpty())
-        return OverlayOp.createEmptyResult(OverlayOp.SYMDIFFERENCE, this, other, factory);
-        
-    // special case: if either input is empty ==> result = other arg
-      if (this.isEmpty()) return (Geometry) other.copy();
-      if (other.isEmpty()) return (Geometry) copy();
-    }
-
-    checkNotGeometryCollection(this);
-    checkNotGeometryCollection(other);
-    return SnapIfNeededOverlayOp.overlayOp(this, other, OverlayOp.SYMDIFFERENCE);
+    return OverlayOp.symDifference(this, other);
   }
 
 	/**
@@ -1711,7 +1669,7 @@ public abstract class Geometry
    * 
    * @return true if this is a hetereogeneous GeometryCollection
    */
-  protected boolean isGeometryCollection() {
+  public boolean isGeometryCollection() {
     return getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION;
   }
 

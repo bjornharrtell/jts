@@ -22,9 +22,12 @@ import java.util.List;
 import org.locationtech.jts.algorithm.PointLocator;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Location;
 import org.locationtech.jts.geom.TopologyException;
+import org.locationtech.jts.geom.util.GeometryCollectionMapper;
+import org.locationtech.jts.geom.util.GeometryMapper;
 import org.locationtech.jts.geomgraph.Depth;
 import org.locationtech.jts.geomgraph.DirectedEdge;
 import org.locationtech.jts.geomgraph.DirectedEdgeStar;
@@ -36,6 +39,7 @@ import org.locationtech.jts.geomgraph.Node;
 import org.locationtech.jts.geomgraph.PlanarGraph;
 import org.locationtech.jts.geomgraph.Position;
 import org.locationtech.jts.operation.GeometryGraphOperation;
+import org.locationtech.jts.operation.overlay.snap.SnapIfNeededOverlayOp;
 import org.locationtech.jts.util.Assert;
 
 /**
@@ -87,6 +91,63 @@ public class OverlayOp
     OverlayOp gov = new OverlayOp(geom0, geom1);
     Geometry geomOv = gov.getResultGeometry(opCode);
     return geomOv;
+  }
+  
+  public static Geometry intersection(Geometry g, Geometry other)
+  {
+    /**
+     * TODO: MD - add optimization for P-A case using Point-In-Polygon
+     */
+    // special case: if one input is empty ==> empty
+    if (g.isEmpty() || other.isEmpty()) 
+      return OverlayOp.createEmptyResult(OverlayOp.INTERSECTION, g, other, g.getFactory());
+
+    // compute for GCs
+    if (g.isGeometryCollection()) {
+      final Geometry g2 = other;
+      return GeometryCollectionMapper.map(
+          (GeometryCollection) g,
+          new GeometryMapper.MapOp() {
+        public Geometry map(Geometry g) {
+          return g.intersection(g2);
+        }
+      });
+    }
+//    if (isGeometryCollection(other))
+//      return other.intersection(this);
+    
+    g.checkNotGeometryCollection(g);
+    g.checkNotGeometryCollection(other);
+    return SnapIfNeededOverlayOp.overlayOp(g, other, OverlayOp.INTERSECTION);
+  }
+  
+  public static Geometry difference(Geometry g, Geometry other)
+  {
+    // special case: if A.isEmpty ==> empty; if B.isEmpty ==> A
+    if (g.isEmpty()) return OverlayOp.createEmptyResult(OverlayOp.DIFFERENCE, g, other, g.getFactory());
+    if (other.isEmpty()) return (Geometry) g.copy();
+
+    g.checkNotGeometryCollection(g);
+    g.checkNotGeometryCollection(other);
+    return SnapIfNeededOverlayOp.overlayOp(g, other, OverlayOp.DIFFERENCE);
+  }
+  
+  public static Geometry symDifference(Geometry g, Geometry other)
+  {
+    // handle empty geometry cases
+    if (g.isEmpty() || other.isEmpty()) {
+      // both empty - check dimensions
+      if (g.isEmpty() && other.isEmpty())
+        return OverlayOp.createEmptyResult(OverlayOp.SYMDIFFERENCE, g, other, g.getFactory());
+        
+    // special case: if either input is empty ==> result = other arg
+      if (g.isEmpty()) return (Geometry) other.copy();
+      if (other.isEmpty()) return (Geometry) g.copy();
+    }
+
+    g.checkNotGeometryCollection(g);
+    g.checkNotGeometryCollection(other);
+    return SnapIfNeededOverlayOp.overlayOp(g, other, OverlayOp.SYMDIFFERENCE);
   }
 
   /**
