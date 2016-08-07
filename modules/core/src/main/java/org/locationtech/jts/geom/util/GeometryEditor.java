@@ -279,21 +279,21 @@ public class GeometryEditor
       implements GeometryEditorOperation
   {
     public final Geometry edit(Geometry geometry, GeometryFactory factory) {
+      Coordinate[] coords = editCoordinates(geometry.getCoordinates(), geometry);
+      
+      if (coords == null) return geometry;
+      
       if (geometry instanceof LinearRing) {
-        return factory.createLinearRing(editCoordinates(geometry.getCoordinates(),
-            geometry));
+        return factory.createLinearRing(coords);
       }
 
       if (geometry instanceof LineString) {
-        return factory.createLineString(editCoordinates(geometry.getCoordinates(),
-            geometry));
+        return factory.createLineString(coords);
       }
 
       if (geometry instanceof Point) {
-        Coordinate[] newCoordinates = editCoordinates(geometry.getCoordinates(),
-            geometry);
-        if (newCoordinates.length > 0) {
-          return factory.createPoint(newCoordinates[0]);
+        if (coords.length > 0) {
+          return factory.createPoint(coords[0]);
         } else {
           return factory.createPoint();
         }
