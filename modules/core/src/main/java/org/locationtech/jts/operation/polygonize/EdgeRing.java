@@ -32,6 +32,7 @@ import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.impl.CoordinateArraySequence;
 import org.locationtech.jts.io.WKTWriter;
+import org.locationtech.jts.operation.valid.IsValidOp;
 import org.locationtech.jts.planargraph.DirectedEdge;
 import org.locationtech.jts.util.Assert;
 
@@ -263,7 +264,7 @@ class EdgeRing {
     getCoordinates();
     if (ringPts.length <= 3) return false;
     getRing();
-    return ring.isValid();
+    return IsValidOp.isValid(ring);
   }
 
   public boolean isIncludedSet() {
