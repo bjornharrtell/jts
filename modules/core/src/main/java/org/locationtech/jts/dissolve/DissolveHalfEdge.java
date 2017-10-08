@@ -27,7 +27,7 @@ import org.locationtech.jts.geom.Coordinate;
  */
 class DissolveHalfEdge extends MarkHalfEdge
 {
-  private boolean _isStart = false;
+  private boolean isStart = false;
   
   public DissolveHalfEdge(Coordinate orig) {
     super(orig);
@@ -41,7 +41,7 @@ class DissolveHalfEdge extends MarkHalfEdge
    */
   public boolean isStart()
   {
-    return _isStart;
+    return isStart;
   }
   
   /**
@@ -49,6 +49,6 @@ class DissolveHalfEdge extends MarkHalfEdge
    */
   public void setStart()
   {
-    _isStart = true;
+    isStart = true;
   }
 }

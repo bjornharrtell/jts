@@ -34,9 +34,9 @@ public class SegmentIntersectionDetector
   private boolean findProper = false;
   private boolean findAllTypes = false;
   
-  private boolean _hasIntersection = false;
-  private boolean _hasProperIntersection = false;
-  private boolean _hasNonProperIntersection = false;
+  private boolean hasIntersection = false;
+  private boolean hasProperIntersection = false;
+  private boolean hasNonProperIntersection = false;
   
   private Coordinate intPt = null;
   private Coordinate[] intSegments = null;
@@ -86,7 +86,7 @@ public class SegmentIntersectionDetector
    */
   public boolean hasIntersection() 
   { 
-  	return _hasIntersection; 
+  	return hasIntersection; 
   }
   
   /**
@@ -96,7 +96,7 @@ public class SegmentIntersectionDetector
    */
   public boolean hasProperIntersection() 
   { 
-    return _hasProperIntersection; 
+    return hasProperIntersection; 
   }
   
   /**
@@ -106,7 +106,7 @@ public class SegmentIntersectionDetector
    */
   public boolean hasNonProperIntersection() 
   { 
-    return _hasNonProperIntersection; 
+    return hasNonProperIntersection; 
   }
   
   /**
@@ -159,13 +159,13 @@ public class SegmentIntersectionDetector
 			// System.out.println(li);
     	
     	// record intersection info
-			_hasIntersection = true;
+			hasIntersection = true;
 			
 			boolean isProper = li.isProper();
 			if (isProper)
-				_hasProperIntersection = true;
+				hasProperIntersection = true;
       if (! isProper)
-        _hasNonProperIntersection = true;
+        hasNonProperIntersection = true;
 			
 			/**
 			 * If this is the kind of intersection we are searching for
@@ -204,15 +204,15 @@ public class SegmentIntersectionDetector
      * when both possible types have been found.
      */
     if (findAllTypes) {
-      return _hasProperIntersection && _hasNonProperIntersection;
+      return hasProperIntersection && hasNonProperIntersection;
     }
     
   	/**
   	 * If searching for a proper intersection, only stop if one is found
   	 */
   	if (findProper) {
-  		return _hasProperIntersection;
+  		return hasProperIntersection;
   	}
-  	return _hasIntersection;
+  	return hasIntersection;
   }
 }

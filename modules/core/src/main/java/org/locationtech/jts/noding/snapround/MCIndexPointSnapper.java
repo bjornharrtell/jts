@@ -77,7 +77,7 @@ public class MCIndexPointSnapper
     private SegmentString parentEdge;
     // is -1 if hotPixel is not a vertex
     private int hotPixelVertexIndex;
-    private boolean _isNodeAdded = false;
+    private boolean isNodeAdded = false;
 
     public HotPixelSnapAction(HotPixel hotPixel, SegmentString parentEdge, int hotPixelVertexIndex)
     {
@@ -86,7 +86,7 @@ public class MCIndexPointSnapper
       this.hotPixelVertexIndex = hotPixelVertexIndex;
     }
 
-    public boolean isNodeAdded() { return _isNodeAdded; }
+    public boolean isNodeAdded() { return isNodeAdded; }
 
     public void select(MonotoneChain mc, int startIndex)
     {
@@ -107,7 +107,7 @@ public class MCIndexPointSnapper
                 ))
           return;
       }
-      _isNodeAdded = hotPixel.addSnappedNode(ss, startIndex);
+      isNodeAdded = hotPixel.addSnappedNode(ss, startIndex);
     }
 
   }

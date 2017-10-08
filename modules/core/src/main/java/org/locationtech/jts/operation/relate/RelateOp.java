@@ -178,7 +178,7 @@ public class RelateOp
     return covers(g2, g1);
   }
 
-  private RelateComputer _relate;
+  private RelateComputer relate;
 
   /**
    * Creates a new Relate operation, using the default (OGC SFS) Boundary Node Rule.
@@ -189,7 +189,7 @@ public class RelateOp
   public RelateOp(Geometry g0, Geometry g1)
   {
     super(g0, g1);
-    _relate = new RelateComputer(arg);
+    relate = new RelateComputer(arg);
   }
 
   /**
@@ -202,7 +202,7 @@ public class RelateOp
   public RelateOp(Geometry g0, Geometry g1, BoundaryNodeRule boundaryNodeRule)
   {
     super(g0, g1, boundaryNodeRule);
-    _relate = new RelateComputer(arg);
+    relate = new RelateComputer(arg);
   }
 
   /**
@@ -213,7 +213,7 @@ public class RelateOp
    */
   public IntersectionMatrix getIntersectionMatrix()
   {
-    return _relate.computeIM();
+    return relate.computeIM();
   }
 
 }

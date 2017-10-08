@@ -58,7 +58,7 @@ public class FastNodingValidator
   private Collection segStrings;
   private boolean findAllIntersections = false;
   private InteriorIntersectionFinder segInt = null;
-  private boolean _isValid = true;
+  private boolean isValid = true;
   
   /**
    * Creates a new noding validator for a given set of linework.
@@ -96,7 +96,7 @@ public class FastNodingValidator
   public boolean isValid()
   {
   	execute();
-  	return _isValid;
+  	return isValid;
   }
   
   /**
@@ -107,7 +107,7 @@ public class FastNodingValidator
    */
   public String getErrorMessage()
   {
-  	if (_isValid) return "no intersections found";
+  	if (isValid) return "no intersections found";
   	
 		Coordinate[] intSegs = segInt.getIntersectionSegments();
     return "found non-noded intersection between "
@@ -125,7 +125,7 @@ public class FastNodingValidator
   public void checkValid()
   {
   	execute();
-  	if (! _isValid)
+  	if (! isValid)
   		throw new TopologyException(getErrorMessage(), segInt.getInteriorIntersection());
   }
 
@@ -143,14 +143,14 @@ public class FastNodingValidator
   	 * end segments (of SegmentStrings) have an interior intersection,
   	 * since noding should have split any true interior intersections already.
   	 */
-  	_isValid = true;
+  	isValid = true;
   	segInt = new InteriorIntersectionFinder(li);
     segInt.setFindAllIntersections(findAllIntersections);
   	MCIndexNoder noder = new MCIndexNoder();
   	noder.setSegmentIntersector(segInt);
   	noder.computeNodes(segStrings);
   	if (segInt.hasIntersection()) {
-  		_isValid = false;
+  		isValid = false;
   		return;
   	}
   }

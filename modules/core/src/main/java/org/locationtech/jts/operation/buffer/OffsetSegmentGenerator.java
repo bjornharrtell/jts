@@ -100,7 +100,7 @@ class OffsetSegmentGenerator
   private LineSegment offset0 = new LineSegment();
   private LineSegment offset1 = new LineSegment();
   private int side = 0;
-  private boolean _hasNarrowConcaveAngle = false;
+  private boolean hasNarrowConcaveAngle = false;
 
   public OffsetSegmentGenerator(PrecisionModel precisionModel,
       BufferParameters bufParams, double distance) {
@@ -137,7 +137,7 @@ class OffsetSegmentGenerator
    */
   public boolean hasNarrowConcaveAngle()
   {
-    return _hasNarrowConcaveAngle;
+    return hasNarrowConcaveAngle;
   }
   
   private void init(double distance)
@@ -336,7 +336,7 @@ class OffsetSegmentGenerator
        * close, don't add closing segments but simply use one of the offset
        * points
        */
-      _hasNarrowConcaveAngle = true;
+      hasNarrowConcaveAngle = true;
       //System.out.println("NARROW ANGLE - distance = " + distance);
       if (offset0.p1.distance(offset1.p0) < distance
           * INSIDE_TURN_VERTEX_SNAP_DISTANCE_FACTOR) {

@@ -150,7 +150,7 @@ public abstract class LineIntersector
    * the corresponding line
    */
   protected int[][] intLineIndex;
-  protected boolean _isProper;
+  protected boolean isProper;
   protected Coordinate pa;
   protected Coordinate pb;
   /**
@@ -256,13 +256,13 @@ public abstract class LineIntersector
   {
     StringBuffer catBuf = new StringBuffer();
     if (isEndPoint()) catBuf.append(" endpoint");
-    if (_isProper) catBuf.append(" proper");
+    if (isProper) catBuf.append(" proper");
     if (isCollinear()) catBuf.append(" collinear");
     return catBuf.toString();
   }
 
   protected boolean isEndPoint() {
-    return hasIntersection() && !_isProper;
+    return hasIntersection() && !isProper;
   }
 
   /**
@@ -359,7 +359,7 @@ public abstract class LineIntersector
    * @return true if the intersection is proper
    */
   public boolean isProper() {
-    return hasIntersection() && _isProper;
+    return hasIntersection() && isProper;
   }
 
   /**

@@ -25,18 +25,18 @@ import org.locationtech.jts.geom.GeometryCollection;
  */
 public abstract class ShortCircuitedGeometryVisitor
 {
-  private boolean _isDone = false;
+  private boolean isDone = false;
 
   public ShortCircuitedGeometryVisitor() {
   }
 
   public void applyTo(Geometry geom) {
-    for (int i = 0; i < geom.getNumGeometries() && ! _isDone; i++) {
+    for (int i = 0; i < geom.getNumGeometries() && ! isDone; i++) {
       Geometry element = geom.getGeometryN(i);
       if (! (element instanceof GeometryCollection)) {
         visit(element);
         if (isDone()) {
-          _isDone = true;
+          isDone = true;
           return;
         }
       }

@@ -109,7 +109,7 @@ class VWLineSimplifier
     private VWLineSimplifier.VWVertex prev;
     private VWLineSimplifier.VWVertex next;
     private double area = MAX_AREA;
-    private boolean _isLive = true;
+    private boolean isLive = true;
 
     public VWVertex(Coordinate pt)
     {
@@ -141,7 +141,7 @@ class VWLineSimplifier
     }
     public boolean isLive()
     {
-      return _isLive;
+      return isLive;
     }
     public VWLineSimplifier.VWVertex remove()
     {
@@ -159,7 +159,7 @@ class VWLineSimplifier
         if (result == null)
           result = next;
       }
-      _isLive = false;
+      isLive = false;
       return result;
     }
     public Coordinate[] getCoordinates()

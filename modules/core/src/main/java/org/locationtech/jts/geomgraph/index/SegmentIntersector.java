@@ -43,7 +43,7 @@ public class SegmentIntersector
    * These variables keep track of what types of intersections were
    * found during ALL edges that have been intersected.
    */
-  private boolean _hasIntersection = false;
+  private boolean hasIntersection = false;
   private boolean hasProper = false;
   private boolean hasProperInterior = false;
   // the proper intersection point found
@@ -60,7 +60,7 @@ public class SegmentIntersector
   public int numTests = 0;
 
   private Collection[] bdyNodes;
-  private boolean _isDone = false;
+  private boolean isDone = false;
   private boolean isDoneWhenProperInt = false;
 
 
@@ -84,14 +84,14 @@ public class SegmentIntersector
   }
   
   public boolean isDone() {
-	  return _isDone;
+	  return isDone;
   }
   /**
    * @return the proper intersection point, or <code>null</code> if none was found
    */
   public Coordinate getProperIntersectionPoint()  {    return properIntersectionPoint;  }
 
-  public boolean hasIntersection() { return _hasIntersection; }
+  public boolean hasIntersection() { return hasIntersection; }
   /**
    * A proper intersection is an intersection which is interior to at least two
    * line segments.  Note that a proper intersection is not necessarily
@@ -166,7 +166,7 @@ numTests++;
       // the shared endpoint.  Don't bother adding it if it is the
       // only intersection.
       if (! isTrivialIntersection(e0, segIndex0, e1, segIndex1)) {
-        _hasIntersection = true;
+        hasIntersection = true;
         if (includeProper || ! li.isProper() ) {
 //Debug.println(li);
           e0.addIntersections(li, segIndex0, 0);
@@ -176,7 +176,7 @@ numTests++;
           properIntersectionPoint = (Coordinate) li.getIntersection(0).copy();
           hasProper = true;
           if (isDoneWhenProperInt) {
-        	  _isDone = true;
+        	  isDone = true;
           }
           if (!isBoundaryPoint(li, bdyNodes))
             hasProperInterior = true;
