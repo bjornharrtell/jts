@@ -85,6 +85,16 @@ public class IsSimpleOp
   private Geometry inputGeom;
   private boolean isClosedEndpointsInInterior = true;
   private Coordinate nonSimpleLocation = null;
+  
+  static public boolean isSimple(Geometry geom) {
+	IsSimpleOp op = new IsSimpleOp(geom);
+	return op.isSimple();
+  }
+  
+  static public boolean isSimple(Geometry geom, BoundaryNodeRule boundaryNodeRule) {
+    IsSimpleOp op = new IsSimpleOp(geom, boundaryNodeRule);
+	return op.isSimple();
+  }
 
   /**
    * Creates a simplicity checker using the default SFS Mod-2 Boundary Node Rule
