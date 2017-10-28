@@ -77,6 +77,9 @@ public class RelateOp
     return im;
   }
   
+  /**
+   * @see Geometry#intersects(Geometry)
+   */
   public static boolean intersects(Geometry g1, Geometry g2) {
     // short-circuit envelope test
     if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
@@ -120,6 +123,9 @@ public class RelateOp
     return new RelateOp(g1, g2).getIntersectionMatrix().isIntersects();
   }
   
+  /**
+   * @see Geometry#contains(Geometry)
+   */
   public static boolean contains(Geometry g1, Geometry g2) {
     // optimization - lower dimension cannot contain areas
     if (g2.getDimension() == 2 && g1.getDimension() < 2) {
@@ -142,6 +148,9 @@ public class RelateOp
     return new RelateOp(g1, g2).getIntersectionMatrix().isContains();
   }
   
+  /**
+   * @see Geometry#overlaps(Geometry)
+   */
   public static boolean overlaps(Geometry g1, Geometry g2) {
     // short-circuit test
     if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
@@ -149,6 +158,9 @@ public class RelateOp
     return new RelateOp(g1, g2).getIntersectionMatrix().isOverlaps(g1.getDimension(), g2.getDimension());
   }
   
+  /**
+   * @see Geometry#covers(Geometry)
+   */
   public static boolean covers(Geometry g1, Geometry g2) {
     // optimization - lower dimension cannot cover areas
     if (g2.getDimension() == 2 && g1.getDimension() < 2) {
@@ -170,6 +182,9 @@ public class RelateOp
     return new RelateOp(g1, g2).getIntersectionMatrix().isCovers();
   }
   
+  /**
+   * @see Geometry#touches(Geometry)
+   */
   public static boolean touches(Geometry g1, Geometry g2) {
     // short-circuit test
     if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))
@@ -177,6 +192,9 @@ public class RelateOp
     return new RelateOp(g1, g2).getIntersectionMatrix().isTouches(g1.getDimension(), g2.getDimension());
   }
   
+  /**
+   * @see Geometry#crosses(Geometry)
+   */
   public static boolean crosses(Geometry g1, Geometry g2) {
     // short-circuit test
     if (! g1.getEnvelopeInternal().intersects(g2.getEnvelopeInternal()))

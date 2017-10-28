@@ -172,6 +172,9 @@ public class OverlayOp
     return SnapIfNeededOverlayOp.overlayOp(geom, other, OverlayOp.INTERSECTION);
   }
   
+  /**
+   * @see Geometry#union(Geometry)
+   */
   public static Geometry union(Geometry geom, Geometry other)
   {
     // handle empty geometry cases
@@ -191,6 +194,9 @@ public class OverlayOp
     return SnapIfNeededOverlayOp.overlayOp(geom, other, OverlayOp.UNION);
   }
   
+  /**
+   * @see Geometry#difference(Geometry)
+   */
   public static Geometry difference(Geometry geom, Geometry other)
   {
     // special case: if A.isEmpty ==> empty; if B.isEmpty ==> A
@@ -202,6 +208,9 @@ public class OverlayOp
     return SnapIfNeededOverlayOp.overlayOp(geom, other, OverlayOp.DIFFERENCE);
   }
 
+  /**
+   * @see Geometry#symDifference(Geometry)
+   */
   public static Geometry symDifference(Geometry geom, Geometry other)
   {
     // handle empty geometry cases

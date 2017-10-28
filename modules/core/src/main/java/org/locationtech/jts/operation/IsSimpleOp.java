@@ -86,11 +86,17 @@ public class IsSimpleOp
   private boolean isClosedEndpointsInInterior = true;
   private Coordinate nonSimpleLocation = null;
   
+  /**
+   * @see Geometry#isSimple()
+   */
   static public boolean isSimple(Geometry geom) {
 	IsSimpleOp op = new IsSimpleOp(geom);
 	return op.isSimple();
   }
   
+  /**
+   * @see IsSimpleOp#IsSimpleOp(Geometry, BoundaryNodeRule)
+   */
   static public boolean isSimple(Geometry geom, BoundaryNodeRule boundaryNodeRule) {
     IsSimpleOp op = new IsSimpleOp(geom, boundaryNodeRule);
 	return op.isSimple();
