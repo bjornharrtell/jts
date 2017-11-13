@@ -413,8 +413,8 @@ public class Polygon
     return 0;
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_POLYGON;
+  public int getOrdinal() {
+    return Geometry.ORDINAL_POLYGON;
   }
 
   private void normalize(LinearRing ring, boolean clockwise) {

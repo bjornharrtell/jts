@@ -138,8 +138,8 @@ public class MultiPolygon
     return new MultiPolygon(polygons, factory);
   }
 
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_MULTIPOLYGON;
+  public int getOrdinal() {
+    return Geometry.ORDINAL_MULTIPOLYGON;
   }
 }
 

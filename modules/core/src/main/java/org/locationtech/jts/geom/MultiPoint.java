@@ -106,8 +106,8 @@ public class MultiPoint
     return new MultiPoint(points, factory);
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_MULTIPOINT;
+  public int getOrdinal() {
+    return Geometry.ORDINAL_MULTIPOINT;
   }
 
 }

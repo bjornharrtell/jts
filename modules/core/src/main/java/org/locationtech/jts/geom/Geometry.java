@@ -158,14 +158,14 @@ public abstract class Geometry
 {
   private static final long serialVersionUID = 8763622679187376702L;
     
-  static final int SORTINDEX_POINT = 0;
-  static final int SORTINDEX_MULTIPOINT = 1;
-  static final int SORTINDEX_LINESTRING = 2;
-  static final int SORTINDEX_LINEARRING = 3;
-  static final int SORTINDEX_MULTILINESTRING = 4;
-  static final int SORTINDEX_POLYGON = 5;
-  static final int SORTINDEX_MULTIPOLYGON = 6;
-  static final int SORTINDEX_GEOMETRYCOLLECTION = 7;
+  public static final int ORDINAL_POINT = 0;
+  public static final int ORDINAL_MULTIPOINT = 1;
+  public static final int ORDINAL_LINESTRING = 2;
+  public static final int ORDINAL_LINEARRING = 3;
+  public static final int ORDINAL_MULTILINESTRING = 4;
+  public static final int ORDINAL_POLYGON = 5;
+  public static final int ORDINAL_MULTIPOLYGON = 6;
+  public static final int ORDINAL_GEOMETRYCOLLECTION = 7;
   
   private final static GeometryComponentFilter geometryChangedFilter = new GeometryComponentFilter() {
     public void filter(Geometry geom) {
@@ -1565,8 +1565,8 @@ public abstract class Geometry
    */
   public int compareTo(Object o) {
     Geometry other = (Geometry) o;
-    if (getSortIndex() != other.getSortIndex()) {
-      return getSortIndex() - other.getSortIndex();
+    if (getOrdinal() != other.getOrdinal()) {
+      return getOrdinal() - other.getOrdinal();
     }
     if (isEmpty() && other.isEmpty()) {
       return 0;
@@ -1612,8 +1612,8 @@ public abstract class Geometry
    */
   public int compareTo(Object o, CoordinateSequenceComparator comp) {
     Geometry other = (Geometry) o;
-    if (getSortIndex() != other.getSortIndex()) {
-      return getSortIndex() - other.getSortIndex();
+    if (getOrdinal() != other.getOrdinal()) {
+      return getOrdinal() - other.getOrdinal();
     }
     if (isEmpty() && other.isEmpty()) {
       return 0;
@@ -1665,7 +1665,7 @@ public abstract class Geometry
    */
   public boolean isGeometryCollection()
   {
-    return getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION;
+    return getOrdinal() == ORDINAL_GEOMETRYCOLLECTION;
   }
 
   /**
@@ -1744,7 +1744,7 @@ public abstract class Geometry
     return a.distance(b) <= tolerance;
   }
   
-  abstract protected int getSortIndex();
+  abstract public int getOrdinal();
 
   private Point createPointFromInternalCoord(Coordinate coord, Geometry exemplar)
   {

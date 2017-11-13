@@ -217,8 +217,8 @@ public class Point
     return comp.compare(this.coordinates, point.coordinates);
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_POINT;
+  public int getOrdinal() {
+    return Geometry.ORDINAL_POINT;
   }
 
   public CoordinateSequence getCoordinateSequence() {

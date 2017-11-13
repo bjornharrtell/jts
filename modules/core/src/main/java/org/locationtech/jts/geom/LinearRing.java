@@ -124,8 +124,8 @@ public class LinearRing extends LineString
     return "LinearRing";
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_LINEARRING;
+  public int getOrdinal() {
+    return Geometry.ORDINAL_LINEARRING;
   }
   
   public LinearRing copy() {
