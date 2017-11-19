@@ -27,7 +27,6 @@ import org.locationtech.jts.index.kdtree.KdTree;
 import org.locationtech.jts.triangulate.quadedge.LastFoundQuadEdgeLocator;
 import org.locationtech.jts.triangulate.quadedge.QuadEdgeSubdivision;
 import org.locationtech.jts.triangulate.quadedge.Vertex;
-import org.locationtech.jts.util.Debug;
 
 
 /**
@@ -324,7 +323,7 @@ public class ConformingDelaunayTriangulator
 	 * @param vertices a collection of ConstraintVertex
 	 */
 	private void insertSites(Collection vertices) {
-		Debug.println("Adding sites: " + vertices.size());
+		//Debug.println("Adding sites: " + vertices.size());
 		for (Iterator i = vertices.iterator(); i.hasNext();) {
 			ConstraintVertex v = (ConstraintVertex) i.next();
 			insertSite(v);
@@ -392,9 +391,10 @@ public class ConformingDelaunayTriangulator
 			splits = enforceGabriel(segments);
 
 			count++;
-			Debug.println("Iter: " + count + "   Splits: " + splits
-					+ "   Current # segments = " + segments.size());
+			//Debug.println("Iter: " + count + "   Splits: " + splits
+			//		+ "   Current # segments = " + segments.size());
 		} while (splits > 0 && count < MAX_SPLIT_ITER);
+		/*
 		if (count == MAX_SPLIT_ITER) {
 			Debug.println("ABORTED! Too many iterations while enforcing constraints");
 			if (!Debug.isDebugging())
@@ -402,6 +402,7 @@ public class ConformingDelaunayTriangulator
 						"Too many splitting iterations while enforcing constraints.  Last split point was at: ",
 						splitPt);
 		}
+		*/
 	}
 
 	private void addConstraintVertices() {
@@ -461,7 +462,7 @@ public class ConformingDelaunayTriangulator
 			 */
 			ConstraintVertex insertedVertex = insertSite(splitVertex);
 			if (!insertedVertex.getCoordinate().equals2D(splitPt)) {
-				Debug.println("Split pt snapped to: " + insertedVertex);
+				//Debug.println("Split pt snapped to: " + insertedVertex);
 				// throw new ConstraintEnforcementException("Split point snapped to
 				// existing point
 				// (tolerance too large or constraint interior narrow angle?)",
