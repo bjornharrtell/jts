@@ -67,6 +67,9 @@ public class DistanceOp
    */
   public static boolean isWithinDistance(Geometry g0, Geometry g1, double distance)
   {
+    double envDist = g0.getEnvelopeInternal().distance(g1.getEnvelopeInternal());
+      if (envDist > distance)
+        return false;
     DistanceOp distOp = new DistanceOp(g0, g1, distance);
     return distOp.distance() <= distance;
   }
