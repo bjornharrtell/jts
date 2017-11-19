@@ -295,7 +295,7 @@ public class GeometryEditor
       }
 
       if (geometry instanceof Point) {
-        if (coordinates == null && coordinates.length > 1)
+        if (coordinates == null || coordinates.length == 0)
             return factory.createPoint();
         else
             return factory.createPoint(coordinates[0]);
