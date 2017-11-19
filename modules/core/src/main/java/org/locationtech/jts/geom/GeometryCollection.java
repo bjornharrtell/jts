@@ -127,7 +127,7 @@ public class GeometryCollection extends Geometry {
   }
 
   public String getGeometryType() {
-    return "GeometryCollection";
+    return Geometry.TYPENAME_GEOMETRYCOLLECTION;
   }
 
   public Geometry getBoundary() {
@@ -273,8 +273,8 @@ public class GeometryCollection extends Geometry {
 
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_GEOMETRYCOLLECTION;
+  protected int getTypeCode() {
+    return Geometry.TYPECODE_GEOMETRYCOLLECTION;
   }
   
   /**

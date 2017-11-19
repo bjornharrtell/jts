@@ -233,7 +233,7 @@ public class Polygon
   }
 
   public String getGeometryType() {
-    return "Polygon";
+    return Geometry.TYPENAME_POLYGON;
   }
 
   /**
@@ -413,8 +413,8 @@ public class Polygon
     return 0;
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_POLYGON;
+  protected int getTypeCode() {
+    return Geometry.TYPECODE_POLYGON;
   }
 
   private void normalize(LinearRing ring, boolean clockwise) {

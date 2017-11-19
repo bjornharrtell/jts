@@ -172,9 +172,9 @@ public class UnaryUnionOp
 		LineStringExtracter.getLines(geom, lines);
 		PointExtracter.getPoints(geom, points);
 		*/
-		GeometryExtracter.extract(geom, Polygon.class, polygons);
-		GeometryExtracter.extract(geom, LineString.class, lines);
-		GeometryExtracter.extract(geom, Point.class, points);
+		GeometryExtracter.extract(geom, Geometry.TYPENAME_POLYGON, polygons);
+		GeometryExtracter.extract(geom, Geometry.TYPENAME_LINESTRING, lines);
+		GeometryExtracter.extract(geom, Geometry.TYPENAME_POINT, points);
 	}
 
 	/**

@@ -116,7 +116,7 @@ public class Point
   }
 
   public String getGeometryType() {
-    return "Point";
+    return Geometry.TYPENAME_POINT;
   }
 
   /**
@@ -217,8 +217,8 @@ public class Point
     return comp.compare(this.coordinates, point.coordinates);
   }
   
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_POINT;
+  protected int getTypeCode() {
+    return Geometry.TYPECODE_POINT;
   }
 
   public CoordinateSequence getCoordinateSequence() {

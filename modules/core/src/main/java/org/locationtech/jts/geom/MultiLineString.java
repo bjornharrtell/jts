@@ -67,7 +67,7 @@ public class MultiLineString
   }
 
   public String getGeometryType() {
-    return "MultiLineString";
+    return Geometry.TYPENAME_MULTILINESTRING;
   }
 
   public boolean isClosed() {
@@ -128,8 +128,8 @@ public class MultiLineString
     return super.equalsExact(other, tolerance);
   }
 
-  protected int getSortIndex() {
-    return Geometry.SORTINDEX_MULTILINESTRING;
+  protected int getTypeCode() {
+    return Geometry.TYPECODE_MULTILINESTRING;
   }
 }
 

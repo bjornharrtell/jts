@@ -158,14 +158,23 @@ public abstract class Geometry
 {
   private static final long serialVersionUID = 8763622679187376702L;
     
-  static final int SORTINDEX_POINT = 0;
-  static final int SORTINDEX_MULTIPOINT = 1;
-  static final int SORTINDEX_LINESTRING = 2;
-  static final int SORTINDEX_LINEARRING = 3;
-  static final int SORTINDEX_MULTILINESTRING = 4;
-  static final int SORTINDEX_POLYGON = 5;
-  static final int SORTINDEX_MULTIPOLYGON = 6;
-  static final int SORTINDEX_GEOMETRYCOLLECTION = 7;
+  protected static final int TYPECODE_POINT = 0;
+  protected static final int TYPECODE_MULTIPOINT = 1;
+  protected static final int TYPECODE_LINESTRING = 2;
+  protected static final int TYPECODE_LINEARRING = 3;
+  protected static final int TYPECODE_MULTILINESTRING = 4;
+  protected static final int TYPECODE_POLYGON = 5;
+  protected static final int TYPECODE_MULTIPOLYGON = 6;
+  protected static final int TYPECODE_GEOMETRYCOLLECTION = 7;
+  
+  public static final String TYPENAME_POINT = "Point";
+  public static final String TYPENAME_MULTIPOINT = "MultiPoint";
+  public static final String TYPENAME_LINESTRING = "LineString";
+  public static final String TYPENAME_LINEARRING = "LinearRing";
+  public static final String TYPENAME_MULTILINESTRING = "MultiLineString";
+  public static final String TYPENAME_POLYGON = "Polygon";
+  public static final String TYPENAME_MULTIPOLYGON = "MultiPolygon";
+  public static final String TYPENAME_GEOMETRYCOLLECTION = "GeometryCollection";
   
   private final static GeometryComponentFilter geometryChangedFilter = new GeometryComponentFilter() {
     public void filter(Geometry geom) {
@@ -1565,8 +1574,8 @@ public abstract class Geometry
    */
   public int compareTo(Object o) {
     Geometry other = (Geometry) o;
-    if (getSortIndex() != other.getSortIndex()) {
-      return getSortIndex() - other.getSortIndex();
+    if (getTypeCode() != other.getTypeCode()) {
+      return getTypeCode() - other.getTypeCode();
     }
     if (isEmpty() && other.isEmpty()) {
       return 0;
@@ -1612,8 +1621,8 @@ public abstract class Geometry
    */
   public int compareTo(Object o, CoordinateSequenceComparator comp) {
     Geometry other = (Geometry) o;
-    if (getSortIndex() != other.getSortIndex()) {
-      return getSortIndex() - other.getSortIndex();
+    if (getTypeCode() != other.getTypeCode()) {
+      return getTypeCode() - other.getTypeCode();
     }
     if (isEmpty() && other.isEmpty()) {
       return 0;
@@ -1665,7 +1674,7 @@ public abstract class Geometry
    */
   public boolean isGeometryCollection()
   {
-    return getSortIndex() == SORTINDEX_GEOMETRYCOLLECTION;
+    return getTypeCode() == TYPECODE_GEOMETRYCOLLECTION;
   }
 
   /**
@@ -1744,7 +1753,7 @@ public abstract class Geometry
     return a.distance(b) <= tolerance;
   }
   
-  abstract protected int getSortIndex();
+  abstract protected int getTypeCode();
 
   private Point createPointFromInternalCoord(Coordinate coord, Geometry exemplar)
   {
