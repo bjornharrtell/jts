@@ -202,6 +202,10 @@ public abstract class Geometry
    * by the client.
    */
   private Object userData = null;
+  
+  public Geometry() {
+	  this.factory = null;
+  }
 
   /**
    * Creates a new <code>Geometry</code> via the specified GeometryFactory.

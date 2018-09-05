@@ -34,6 +34,10 @@ public class GeometryCollection extends Geometry {
    */
   protected Geometry[] geometries;
 
+  public GeometryCollection() {
+	  
+  }
+  
   /** @deprecated Use GeometryFactory instead */
   public GeometryCollection(Geometry[] geometries, PrecisionModel precisionModel, int SRID) {
       this(geometries, new GeometryFactory(precisionModel, SRID));

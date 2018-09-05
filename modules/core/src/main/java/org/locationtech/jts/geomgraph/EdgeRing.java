@@ -48,6 +48,10 @@ public abstract class EdgeRing {
 
   protected GeometryFactory geometryFactory;
 
+  protected EdgeRing() {
+	  
+  }
+  
   public EdgeRing(DirectedEdge start, GeometryFactory geometryFactory) {
     this.geometryFactory = geometryFactory;
     computePoints(start);
