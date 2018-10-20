@@ -18,7 +18,7 @@ import java.util.List;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.GeometryCollection;
 import org.locationtech.jts.geom.GeometryFactory;
-import org.locationtech.jts.geom.util.GeometryMapper.MapOp;
+import org.locationtech.jts.geom.util.MapOp;
 
 /**
  * Maps the members of a {@link GeometryCollection}

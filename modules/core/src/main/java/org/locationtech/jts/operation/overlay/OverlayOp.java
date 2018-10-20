@@ -26,6 +26,7 @@ import org.locationtech.jts.geom.Location;
 import org.locationtech.jts.geom.TopologyException;
 import org.locationtech.jts.geom.util.GeometryCollectionMapper;
 import org.locationtech.jts.geom.util.GeometryMapper;
+import org.locationtech.jts.geom.util.MapOp;
 import org.locationtech.jts.geomgraph.Depth;
 import org.locationtech.jts.geomgraph.DirectedEdge;
 import org.locationtech.jts.geomgraph.DirectedEdgeStar;
@@ -154,21 +155,22 @@ public class OverlayOp
       return OverlayOp.createEmptyResult(OverlayOp.INTERSECTION, geom, other, geom.getFactory());
 
     // compute for GCs
+    // (An inefficient algorithm, but will work)
+    // TODO: improve efficiency of computation for GCs
     if (geom.isGeometryCollection()) {
       final Geometry g2 = other;
       return GeometryCollectionMapper.map(
           (GeometryCollection) geom,
-          new GeometryMapper.MapOp() {
-        public Geometry map(Geometry g) {
-          return g.intersection(g2);
-        }
+          new MapOp() {
+            public Geometry map(Geometry g) {
+              return intersection(g, g2);
+            }
       });
     }
-//    if (isGeometryCollection(other))
-//      return other.intersection(this);
-    
-    if (geom.isGeometryCollection() || other.isGeometryCollection())
-	  throw new IllegalArgumentException("This method does not support GeometryCollection arguments");
+
+    // No longer needed since GCs are handled by previous code
+    //checkNotGeometryCollection(this);
+    //checkNotGeometryCollection(other);
     return SnapIfNeededOverlayOp.overlayOp(geom, other, OverlayOp.INTERSECTION);
   }
   
