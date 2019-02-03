@@ -70,13 +70,12 @@ public class LineMerger
    * @param geometry geometry to be line-merged
    */  
   public void add(Geometry geometry) {
-    geometry.apply(new GeometryComponentFilter() {
-      public void filter(Geometry component) {
-        if (component instanceof LineString) {
-          add((LineString)component);
-        }
-      }      
-    });
+    for (int i=0; i<geometry.getNumGeometries(); i++) {
+      Geometry component = geometry.getGeometryN(i);
+      if (component instanceof LineString) {
+        addLineString((LineString)component);
+      }
+    };
   }
   /**
    * Adds a collection of Geometries to be processed. May be called multiple times.
@@ -93,7 +92,7 @@ public class LineMerger
       add(geometry);
     }
   }
-  private void add(LineString lineString) {
+  private void addLineString(LineString lineString) {
     if (factory == null) {
       this.factory = lineString.getFactory();
     }
