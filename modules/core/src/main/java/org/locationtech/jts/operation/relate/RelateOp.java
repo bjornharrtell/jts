@@ -201,6 +201,17 @@ public class RelateOp
       return false;
     return new RelateOp(g1, g2).getIntersectionMatrix().isCrosses(g1.getDimension(), g2.getDimension());
   }
+  
+  /**
+   * @see Geometry#equalsTopo(Geometry)
+   */
+  public boolean equalsTopo(Geometry g1, Geometry g2)
+  {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().equals(g2.getEnvelopeInternal()))
+      return false;
+    return RelateOp.relate(g1, g2).isEquals(g1.getDimension(), g2.getDimension());
+  }
 
   private RelateComputer relate;
 
