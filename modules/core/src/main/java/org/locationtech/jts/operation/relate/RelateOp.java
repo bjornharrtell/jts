@@ -205,7 +205,7 @@ public class RelateOp
   /**
    * @see Geometry#equalsTopo(Geometry)
    */
-  public boolean equalsTopo(Geometry g1, Geometry g2)
+  public static boolean equalsTopo(Geometry g1, Geometry g2)
   {
     // short-circuit test
     if (! g1.getEnvelopeInternal().equals(g2.getEnvelopeInternal()))
