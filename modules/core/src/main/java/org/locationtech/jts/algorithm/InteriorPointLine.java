@@ -38,7 +38,11 @@ public class InteriorPointLine {
 
   public InteriorPointLine(Geometry g)
   {
-    centroid = g.getCentroid().getCoordinate();
+    if (g.isEmpty()) {
+      centroid = new Coordinate();
+    } else {
+      centroid = Centroid.getCentroid(g);
+    }
     addInterior(g);
     if (interiorPoint == null)
       addEndpoints(g);
