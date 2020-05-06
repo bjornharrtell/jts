@@ -11,6 +11,7 @@
  */
 package org.locationtech.jts.geom;
 
+import org.locationtech.jts.operation.BoundaryOp;
 
 /**
  * Models a collection of {@link LineString}s.
@@ -79,6 +80,18 @@ public class MultiLineString
       }
     }
     return true;
+  }
+
+  /**
+   * Gets the boundary of this geometry.
+   * The boundary of a lineal geometry is always a zero-dimensional geometry (which may be empty).
+   *
+   * @return the boundary geometry
+   * @see Geometry#getBoundary
+   */
+  public Geometry getBoundary()
+  {
+    return (new BoundaryOp(this)).getBoundary();
   }
 
   /**

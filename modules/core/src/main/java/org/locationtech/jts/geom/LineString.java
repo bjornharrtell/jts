@@ -12,6 +12,7 @@
 package org.locationtech.jts.geom;
 
 import org.locationtech.jts.algorithm.Length;
+import org.locationtech.jts.operation.BoundaryOp;
 
 /**
  *  Models an OGC-style <code>LineString</code>.
@@ -174,16 +175,7 @@ public class LineString
    * @see Geometry#getBoundary
    */
   public Geometry getBoundary() {
-    if (isEmpty()) {
-      return factory.createMultiPoint();
-    }
-    if (isClosed()) {
-        return factory.createMultiPoint();
-    }
-    return factory.createMultiPoint(new Point[]{
-                                     getStartPoint(),
-                                     getEndPoint()
-    });
+    return (new BoundaryOp(this)).getBoundary();
   }
 
   /**
