@@ -19,7 +19,6 @@ import java.util.Arrays;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequence;
-import org.locationtech.jts.geom.CoordinateSequences;
 import org.locationtech.jts.geom.CoordinateXY;
 import org.locationtech.jts.geom.CoordinateXYM;
 import org.locationtech.jts.geom.CoordinateXYZM;
@@ -191,11 +190,6 @@ public abstract class PackedCoordinateSequence
   public void setY(int index, double value) {
     coordRef = null;
     setOrdinate(index, 1, value);
-  }
-
-  public String toString()
-  {
-    return CoordinateSequences.toString(this);
   }
 
   protected Object readResolve() throws ObjectStreamException {
