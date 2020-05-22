@@ -11,9 +11,6 @@
  */
 package org.locationtech.jts.geom;
 
-import org.locationtech.jts.io.OrdinateFormat;
-import org.locationtech.jts.util.NumberUtil;
-
 
 /**
  * Utility functions for manipulating {@link CoordinateSequence}s
@@ -195,35 +192,6 @@ public class CoordinateSequences {
     return true;
   }
   
-  /**
-   * Creates a string representation of a {@link CoordinateSequence}.
-   * The format is:
-   * <pre>
-   *   ( ord0,ord1.. ord0,ord1,...  ... )
-   * </pre>
-   * 
-   * @param cs the sequence to output
-   * @return the string representation of the sequence
-   */
-  public static String toString(CoordinateSequence cs)
-  {
-    int size = cs.size();
-    if (size == 0) 
-      return "()";
-    int dim = cs.getDimension();
-    StringBuilder builder = new StringBuilder();
-    builder.append('(');
-    for (int i = 0; i < size; i++) {
-      if (i > 0) builder.append(" ");
-      for (int d = 0; d < dim; d++) {
-        if (d > 0) builder.append(",");
-        builder.append( OrdinateFormat.DEFAULT.format(cs.getOrdinate(i, d)) );
-      }
-    }
-    builder.append(')');
-    return builder.toString();
-  }
-
   /**
    *  Returns the minimum coordinate, using the usual lexicographic comparison.
    *

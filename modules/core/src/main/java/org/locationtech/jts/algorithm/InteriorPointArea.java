@@ -13,6 +13,7 @@
 package org.locationtech.jts.algorithm;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.locationtech.jts.geom.Coordinate;
@@ -256,7 +257,7 @@ public class InteriorPointArea {
       // TODO: is there a better way to verify the crossings are correct?
       Assert.isTrue(0 == crossings.size() % 2, "Interior Point robustness failure: odd number of scanline crossings");
       
-      crossings.sort(Double::compare);
+      crossings.sort(new DoubleComparator());
       /*
        * Entries in crossings list are expected to occur in pairs representing a
        * section of the scan line interior to the polygon (which may be zero-length)
@@ -272,6 +273,12 @@ public class InteriorPointArea {
           double interiorPointX = avg(x1, x2);
           interiorPoint = new Coordinate(interiorPointX, interiorPointY);
         }
+      }
+    }
+
+    private static class DoubleComparator implements Comparator<Double> {
+      public int compare(Double v1, Double v2) {
+          return v1 < v2 ? -1 : v1 > v2 ? +1 : 0;
       }
     }
     
