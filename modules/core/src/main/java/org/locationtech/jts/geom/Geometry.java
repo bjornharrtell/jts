@@ -196,6 +196,10 @@ public abstract class Geometry
    */
   private Object userData = null;
 
+  public Geometry() {
+	  this.factory = null;
+  }
+
   /**
    * Creates a new <code>Geometry</code> via the specified GeometryFactory.
    *
@@ -992,10 +996,7 @@ public abstract class Geometry
    */
   public boolean equalsTopo(Geometry g)
   {
-    // short-circuit test
-    if (! getEnvelopeInternal().equals(g.getEnvelopeInternal()))
-      return false;
-    return relate(g).isEquals(getDimension(), g.getDimension());
+    return RelateOp.equalsTopo(this, g);
   }
 
   /**

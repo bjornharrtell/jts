@@ -41,6 +41,10 @@ public class LineString
    */
   protected CoordinateSequence points;
 
+  public LineString() {
+	  
+  }
+
   /**
    *  Constructs a <code>LineString</code> with the given points.
    *

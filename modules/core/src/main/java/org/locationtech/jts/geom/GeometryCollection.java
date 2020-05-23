@@ -41,6 +41,9 @@ public class GeometryCollection extends Geometry {
       this(geometries, new GeometryFactory(precisionModel, SRID));
   }
 
+  public GeometryCollection() {
+	  
+  }
 
   /**
    * @param geometries

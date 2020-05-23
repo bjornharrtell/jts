@@ -57,6 +57,10 @@ public class DirectedEdge
   protected int quadrant;
   protected double angle;
 
+  protected DirectedEdge() {
+
+  }
+
   /**
    * Constructs a DirectedEdge connecting the <code>from</code> node to the
    * <code>to</code> node.
