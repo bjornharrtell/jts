@@ -128,9 +128,7 @@ public interface CoordinateSequence
    * </p>
    * @return coordinate for use with this sequence
    */
-  default Coordinate createCoordinate() {
-    return Coordinates.create(getDimension(), getMeasures());
-  }
+  Coordinate createCoordinate();
   
   /**
    * Returns (possibly a copy of) the i'th coordinate in this sequence.

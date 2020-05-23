@@ -14,6 +14,7 @@ package org.locationtech.jts.operation.distance3d;
 
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.CoordinateSequence;
+import org.locationtech.jts.geom.Coordinates;
 import org.locationtech.jts.geom.Envelope;
 
 /**
@@ -80,6 +81,10 @@ public class AxisPlaneCoordinateSequence implements CoordinateSequence {
 
 	public int getDimension() {
 		return 2;
+	}
+
+	public Coordinate createCoordinate() {
+		return Coordinates.create(getDimension(), getMeasures());
 	}
 
 	public Coordinate getCoordinate(int i) {

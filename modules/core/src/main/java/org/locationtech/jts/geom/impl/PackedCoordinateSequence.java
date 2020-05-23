@@ -11,7 +11,6 @@
  */
 package org.locationtech.jts.geom.impl;
 
-
 import java.io.ObjectStreamException;
 import java.io.Serializable;
 import java.lang.ref.SoftReference;
@@ -22,6 +21,7 @@ import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.CoordinateXY;
 import org.locationtech.jts.geom.CoordinateXYM;
 import org.locationtech.jts.geom.CoordinateXYZM;
+import org.locationtech.jts.geom.Coordinates;
 import org.locationtech.jts.geom.Envelope;
 
 /**
@@ -83,6 +83,10 @@ public abstract class PackedCoordinateSequence
   @Override
   public int getMeasures() {
     return this.measures;
+  }
+
+  public Coordinate createCoordinate() {
+    return Coordinates.create(getDimension(), getMeasures());
   }
 
   /**

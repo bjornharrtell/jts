@@ -175,6 +175,10 @@ public class CoordinateArraySequence
     return measures;
   }
 
+  public Coordinate createCoordinate() {
+    return Coordinates.create(getDimension(), getMeasures());
+  }
+
   /**
    * Get the Coordinate with index i.
    *
