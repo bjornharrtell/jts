@@ -162,13 +162,11 @@ public class OverlayOp
           (GeometryCollection) geom,
           new GeometryMapper.MapOp() {
         public Geometry map(Geometry g) {
-          return g.intersection(g2);
+          return intersection(g, g2);
         }
       });
     }
     
-    if (geom.isGeometryCollection() || other.isGeometryCollection())
-      throw new IllegalArgumentException("This method does not support GeometryCollection arguments");
     return SnapIfNeededOverlayOp.overlayOp(geom, other, OverlayOp.INTERSECTION);
   }
   
