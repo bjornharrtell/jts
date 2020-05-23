@@ -11,8 +11,6 @@
  */
 package org.locationtech.jts.algorithm.construct;
 
-import java.util.PriorityQueue;
-
 import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
@@ -24,6 +22,7 @@ import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.operation.distance.IndexedFacetDistance;
+import org.locationtech.jts.util.PriorityQueue;
 
 /**
  * Constructs the Maximum Inscribed Circle for a 
@@ -183,7 +182,7 @@ public class MaximumInscribedCircle {
     if (centerCell != null) return;
     
     // Priority queue of cells, ordered by maximum distance from boundary
-    PriorityQueue<Cell> cellQueue = new PriorityQueue<>();
+    PriorityQueue<Cell> cellQueue = new PriorityQueue<Cell>();
     
     createInitialGrid(inputGeom.getEnvelopeInternal(), cellQueue);
 

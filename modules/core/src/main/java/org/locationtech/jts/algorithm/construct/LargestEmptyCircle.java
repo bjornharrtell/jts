@@ -11,8 +11,6 @@
  */
 package org.locationtech.jts.algorithm.construct;
 
-import java.util.PriorityQueue;
-
 import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
@@ -22,6 +20,7 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Location;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.operation.distance.IndexedFacetDistance;
+import org.locationtech.jts.util.PriorityQueue;
 
 /**
  * Constructs the Largest Empty Circle for a set
@@ -207,7 +206,7 @@ public class LargestEmptyCircle {
     }
     
     // Priority queue of cells, ordered by decreasing distance from constraints
-    PriorityQueue<Cell> cellQueue = new PriorityQueue<>();
+    PriorityQueue<Cell> cellQueue = new PriorityQueue<Cell>();
     
     createInitialGrid(obstacles.getEnvelopeInternal(), cellQueue);
 
