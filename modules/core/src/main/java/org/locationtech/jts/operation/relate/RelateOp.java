@@ -76,6 +76,17 @@ public class RelateOp
     IntersectionMatrix im = relOp.getIntersectionMatrix();
     return im;
   }
+
+  /**
+   * @see Geometry#equalsTopo(Geometry)
+   */
+  public static boolean equalsTopo(Geometry g1, Geometry g2)
+  {
+    // short-circuit test
+    if (! g1.getEnvelopeInternal().equals(g2.getEnvelopeInternal()))
+      return false;
+    return relate(g1, g2).isEquals(g1.getDimension(), g2.getDimension());
+  }
   
   /**
    * @see Geometry#intersects(Geometry)
