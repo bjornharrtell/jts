@@ -18,7 +18,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import org.locationtech.jts.geom.impl.CoordinateArraySequenceFactory;
-import org.locationtech.jts.geom.util.GeometryEditor;
 import org.locationtech.jts.util.Assert;
 
 /**
@@ -641,39 +640,6 @@ public class GeometryFactory
     }
   }
   
-  /**
-   * Creates a deep copy of the input {@link Geometry}.
-   * The {@link CoordinateSequenceFactory} defined for this factory
-   * is used to copy the {@link CoordinateSequence}s
-   * of the input geometry.
-   * <p>
-   * This is a convenient way to change the <tt>CoordinateSequence</tt>
-   * used to represent a geometry, or to change the 
-   * factory used for a geometry.
-   * <p>
-   * {@link Geometry#copy()} can also be used to make a deep copy,
-   * but it does not allow changing the CoordinateSequence type.
-   * 
-   * @return a deep copy of the input geometry, using the CoordinateSequence type of this factory
-   * 
-   * @see Geometry#copy() 
-   */
-  public Geometry createGeometry(Geometry g)
-  {
-    GeometryEditor editor = new GeometryEditor(this);
-    return editor.edit(g, new CoordSeqCloneOp(coordinateSequenceFactory));
-  }
-
-  private static class CoordSeqCloneOp extends GeometryEditor.CoordinateSequenceOperation {
-    CoordinateSequenceFactory coordinateSequenceFactory;
-    public CoordSeqCloneOp(CoordinateSequenceFactory coordinateSequenceFactory) {
-      this.coordinateSequenceFactory = coordinateSequenceFactory;
-    }
-    public CoordinateSequence edit(CoordinateSequence coordSeq, Geometry geometry) {
-      return coordinateSequenceFactory.create(coordSeq);
-    }
-  }
-
   /**
    * Gets the SRID value defined for this factory.
    * 

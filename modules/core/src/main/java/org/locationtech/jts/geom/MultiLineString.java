@@ -11,8 +11,6 @@
  */
 package org.locationtech.jts.geom;
 
-import org.locationtech.jts.operation.BoundaryOp;
-
 /**
  * Models a collection of {@link LineString}s.
  * <p>
@@ -91,7 +89,7 @@ public class MultiLineString
    */
   public Geometry getBoundary()
   {
-    return (new BoundaryOp(this)).getBoundary();
+    throw new UnsupportedOperationException();
   }
 
   /**
