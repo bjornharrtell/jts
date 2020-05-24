@@ -17,6 +17,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Polygonal;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.geom.util.GeometryEditor;
+import org.locationtech.jts.operation.buffer.BufferOp;
 import org.locationtech.jts.operation.valid.IsValidOp;
 
 /**
@@ -170,7 +171,7 @@ public class GeometryPrecisionReducer
   		geomToBuffer = changePM(geom, targetPM);
   	}
   	
-  	Geometry bufGeom = geomToBuffer.buffer(0);
+  	Geometry bufGeom = BufferOp.bufferOp(geomToBuffer, 0);
   	
   	Geometry finalGeom = bufGeom;
   	if (! changePrecisionModel) {
