@@ -529,7 +529,7 @@ public class WKTWriter
     }
     else {
       Assert.shouldNeverReachHere("Unsupported Geometry implementation:"
-           + geometry.getClass());
+           + geometry.getGeometryType());
     }
   }
 

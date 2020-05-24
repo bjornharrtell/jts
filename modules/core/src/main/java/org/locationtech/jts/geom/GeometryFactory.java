@@ -548,16 +548,16 @@ public class GeometryFactory
   	/**
   	 * Determine some facts about the geometries in the list
   	 */
-    Class geomClass = null;
+    Integer geomType = null;
     boolean isHeterogeneous = false;
     boolean hasGeometryCollection = false;
     for (Iterator i = geomList.iterator(); i.hasNext(); ) {
       Geometry geom = (Geometry) i.next();
-      Class partClass = geom.getClass();
-      if (geomClass == null) {
-        geomClass = partClass;
+      Integer partType = geom.getTypeCode();
+      if (geomType == null) {
+        geomType = partType;
       }
-      if (partClass != geomClass) {
+      if (partType != geomType) {
         isHeterogeneous = true;
       }
       if (geom instanceof GeometryCollection)
@@ -568,7 +568,7 @@ public class GeometryFactory
      * Now construct an appropriate geometry to return
      */
     // for the empty geometry, return an empty GeometryCollection
-    if (geomClass == null) {
+    if (geomType == null) {
       return createGeometryCollection();
     }
     if (isHeterogeneous || hasGeometryCollection) {
@@ -589,7 +589,7 @@ public class GeometryFactory
       else if (geom0 instanceof Point) {
         return createMultiPoint(toPointArray(geomList));
       }
-      Assert.shouldNeverReachHere("Unhandled class: " + geom0.getClass().getName());
+      Assert.shouldNeverReachHere("Unhandled geometry type: " + geom0.getGeometryType());
     }
     return geom0;
   }

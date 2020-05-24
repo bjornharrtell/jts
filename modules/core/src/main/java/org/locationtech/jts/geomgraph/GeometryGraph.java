@@ -210,7 +210,7 @@ public class GeometryGraph
     else if (g instanceof MultiLineString)    addCollection((MultiLineString) g);
     else if (g instanceof MultiPolygon)       addCollection((MultiPolygon) g);
     else if (g instanceof GeometryCollection) addCollection((GeometryCollection) g);
-    else  throw new UnsupportedOperationException(g.getClass().getName());
+    else  throw new UnsupportedOperationException(g.getGeometryType());
   }
 
   private void addCollection(GeometryCollection gc)

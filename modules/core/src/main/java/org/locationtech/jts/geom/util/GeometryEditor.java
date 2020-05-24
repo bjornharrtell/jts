@@ -160,7 +160,7 @@ public class GeometryEditor
       return operation.edit(geometry, factory);
     }
 
-    Assert.shouldNeverReachHere("Unsupported Geometry class: " + geometry.getClass().getName());
+    Assert.shouldNeverReachHere("Unsupported Geometry type: " + geometry.getGeometryType());
     return null;
   }
 
@@ -202,7 +202,7 @@ public class GeometryEditor
         factory);
     
     // edit the component geometries
-    ArrayList geometries = new ArrayList();
+    ArrayList<Geometry> geometries = new ArrayList<>();
     for (int i = 0; i < collectionForType.getNumGeometries(); i++) {
       Geometry geometry = edit(collectionForType.getGeometryN(i), operation);
       if (geometry == null || geometry.isEmpty()) {
@@ -211,15 +211,15 @@ public class GeometryEditor
       geometries.add(geometry);
     }
 
-    if (collectionForType.getClass() == MultiPoint.class) {
+    if (collectionForType.getGeometryType() == Geometry.TYPENAME_MULTIPOINT) {
       return factory.createMultiPoint((Point[]) geometries.toArray(
             new Point[] {  }));
     }
-    if (collectionForType.getClass() == MultiLineString.class) {
+    if (collectionForType.getGeometryType() == Geometry.TYPENAME_MULTILINESTRING) {
       return factory.createMultiLineString((LineString[]) geometries.toArray(
             new LineString[] {  }));
     }
-    if (collectionForType.getClass() == MultiPolygon.class) {
+    if (collectionForType.getGeometryType() == Geometry.TYPENAME_MULTIPOLYGON) {
       return factory.createMultiPolygon((Polygon[]) geometries.toArray(
             new Polygon[] {  }));
     }

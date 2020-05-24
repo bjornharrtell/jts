@@ -1661,7 +1661,7 @@ public abstract class Geometry
    *      s are considered to be equal by the <code>equalsExact</code> method.
    */
   protected boolean isEquivalentClass(Geometry other) {
-    return this.getClass().getName().equals(other.getClass().getName());
+    return this.getTypeCode() == other.getTypeCode();
   }
 
   /**

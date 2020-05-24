@@ -47,7 +47,7 @@ public class RepeatedPointTester {
     else if (g instanceof LineString)         return hasRepeatedPoint(((LineString) g).getCoordinates());
     else if (g instanceof Polygon)            return hasRepeatedPoint((Polygon) g);
     else if (g instanceof GeometryCollection) return hasRepeatedPoint((GeometryCollection) g);
-    else  throw new UnsupportedOperationException(g.getClass().getName());
+    else  throw new UnsupportedOperationException(g.getGeometryType());
   }
 
   public boolean hasRepeatedPoint(Coordinate[] coord)

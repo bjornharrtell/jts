@@ -181,7 +181,7 @@ public class IsValidOp
     else if (g instanceof Polygon)            checkValid( (Polygon) g);
     else if (g instanceof MultiPolygon)       checkValid( (MultiPolygon) g);
     else if (g instanceof GeometryCollection) checkValid( (GeometryCollection) g);
-    else  throw new UnsupportedOperationException(g.getClass().getName());
+    else  throw new UnsupportedOperationException(g.getGeometryType());
   }
 
   /**

@@ -132,7 +132,7 @@ public class GeometryTransformer
     if (inputGeom instanceof GeometryCollection)
       return transformGeometryCollection((GeometryCollection) inputGeom, null);
 
-    throw new IllegalArgumentException("Unknown Geometry subtype: " + inputGeom.getClass().getName());
+    throw new IllegalArgumentException("Unknown Geometry subtype: " + inputGeom.getGeometryType());
   }
 
   /**
