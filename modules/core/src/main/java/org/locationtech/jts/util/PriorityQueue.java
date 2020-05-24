@@ -19,17 +19,17 @@ import java.util.ArrayList;
  * @author Martin Davis
  *
  */
-public class PriorityQueue<T extends Comparable<T>> 
+public class PriorityQueue 
 {
   private int size; // Number of elements in queue
-  private ArrayList<T> items; // The queue binary heap array
+  private ArrayList items; // The queue binary heap array
 
   /**
    * Creates a new empty priority queue
    */
   public PriorityQueue() {
     size = 0;
-    items = new ArrayList<T>();
+    items = new ArrayList();
     // create space for sentinel
     items.add(null);
   }
@@ -39,7 +39,7 @@ public class PriorityQueue<T extends Comparable<T>>
    * Duplicates are allowed.
    * @param x the item to insert.
    */
-  public void add(T x) 
+  public void add(Comparable x) 
   {
     // increase the size of the items heap to create a hole for the new item
     items.add(null);
@@ -96,11 +96,11 @@ public class PriorityQueue<T extends Comparable<T>>
    * Remove the smallest item from the priority queue.
    * @return the smallest item, or null if empty
    */
-  public T poll() 
+  public Object poll() 
   {
     if (isEmpty())
       return null;
-    T minItem = items.get(1);
+    Object minItem = items.get(1);
     items.set(1, items.get(size));
     size -= 1;
     reorder(1);
@@ -108,16 +108,12 @@ public class PriorityQueue<T extends Comparable<T>>
     return minItem;
   }
 
-  public T peek() 
+  public Object peek() 
   {
     if (isEmpty())
       return null;
-    T minItem = items.get(1);
+    Object minItem = items.get(1);
     return minItem;
-  }
-
-  public boolean remove(T o) {
-    return items.remove(o);
   }
   
   /**
@@ -128,14 +124,14 @@ public class PriorityQueue<T extends Comparable<T>>
   private void reorder(int hole) 
   {
     int child;
-    T tmp = items.get(hole);
+    Object tmp = items.get(hole);
 
     for (; hole * 2 <= size; hole = child) {
       child = hole * 2;
       if (child != size
-          && ((Comparable<T>) items.get(child + 1)).compareTo(items.get(child)) < 0)
+          && ((Comparable) items.get(child + 1)).compareTo(items.get(child)) < 0)
         child++;
-      if (((Comparable<T>) items.get(child)).compareTo(tmp) < 0)
+      if (((Comparable) items.get(child)).compareTo(tmp) < 0)
         items.set(hole, items.get(child));
       else
         break;
