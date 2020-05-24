@@ -31,7 +31,7 @@ import org.locationtech.jts.util.Assert;
  */
 public class SegmentNodeList
 {
-  private Map<Integer, SegmentNode> nodeMap = new TreeMap<Integer, SegmentNode>();
+  private Map<SegmentNode, SegmentNode> nodeMap = new TreeMap<SegmentNode, SegmentNode>();
   private NodedSegmentString edge;  // the parent edge
 
   public SegmentNodeList(NodedSegmentString edge)
