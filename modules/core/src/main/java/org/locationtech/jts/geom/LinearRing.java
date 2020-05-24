@@ -64,6 +64,7 @@ public class LinearRing extends LineString
    * @param points
    * @param factory
    * @throws IllegalArgumentException if the ring is not closed, or has too few points
+   * @deprecated Use GeometryFactory instead
    */
   private LinearRing(Coordinate points[], GeometryFactory factory) {
     this(factory.getCoordinateSequenceFactory().create(points), factory);
