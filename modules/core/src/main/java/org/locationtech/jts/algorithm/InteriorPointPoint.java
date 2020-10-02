@@ -46,7 +46,7 @@ public class InteriorPointPoint {
 
   public InteriorPointPoint(Geometry g)
   {
-    centroid = g.getCentroid().getCoordinate();
+    centroid = Centroid.getCentroid(g);
     add(g);
   }
 

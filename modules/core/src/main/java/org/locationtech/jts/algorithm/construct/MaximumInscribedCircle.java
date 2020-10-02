@@ -13,6 +13,7 @@ package org.locationtech.jts.algorithm.construct;
 
 import java.util.PriorityQueue;
 
+import org.locationtech.jts.algorithm.Centroid;
 import org.locationtech.jts.algorithm.locate.IndexedPointInAreaLocator;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.Envelope;
@@ -263,7 +264,7 @@ public class MaximumInscribedCircle {
 
   // create a cell centered on area centroid
   private Cell createCentroidCell(Geometry geom) {
-    Point p = geom.getCentroid();
+    Point p = factory.createPoint(Centroid.getCentroid(geom));
     return new Cell(p.getX(), p.getY(), 0, distanceToBoundary(p));
   }
 
