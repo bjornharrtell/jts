@@ -198,7 +198,7 @@ public class OverlapUnion
   
   private Geometry unionFull(Geometry geom0, Geometry geom1) {
     try {
-      return geom0.union(geom1);
+      return UnionOp.union(geom0, geom1);
     } 
     catch (TopologyException ex) {
       /**
