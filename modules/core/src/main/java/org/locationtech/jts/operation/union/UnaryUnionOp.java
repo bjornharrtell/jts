@@ -253,7 +253,7 @@ public class UnaryUnionOp
   	if (g0 == null)
   		return g1;
   	
-  	return g0.union(g1);
+  	return OverlayOp.union(g0, g1);
   }
 
   /**
