@@ -26,6 +26,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.geom.TopologyException;
 import org.locationtech.jts.geom.util.GeometryCombiner;
+import org.locationtech.jts.operation.buffer.BufferOp;
 
 /**
  * Unions MultiPolygons efficiently by
@@ -222,7 +223,7 @@ public class OverlapUnion
   {
     GeometryFactory factory = g0.getFactory();
     Geometry gColl = factory.createGeometryCollection(new Geometry[] { g0, g1 } );
-    Geometry union = gColl.buffer(0.0);
+    Geometry union = BufferOp.bufferOp(gColl, 0.0);
     return union;
   }
   
