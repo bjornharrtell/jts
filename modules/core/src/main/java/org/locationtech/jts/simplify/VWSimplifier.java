@@ -19,6 +19,7 @@ import org.locationtech.jts.geom.LinearRing;
 import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.util.GeometryTransformer;
+import org.locationtech.jts.operation.buffer.BufferOp;
 
 /**
  * Simplifies a {@link Geometry} using the Visvalingam-Whyatt area-based algorithm. 
@@ -205,7 +206,7 @@ public class VWSimplifier
     private Geometry createValidArea(Geometry rawAreaGeom)
     {
       if (isEnsureValidTopology)
-        return rawAreaGeom.buffer(0.0);
+        return BufferOp.bufferOp(rawAreaGeom,0.0);
       return rawAreaGeom;
     }
   }
