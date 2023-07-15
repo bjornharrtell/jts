@@ -87,6 +87,10 @@ public class RelateOp
       return false;
     return relate(g1, g2).isEquals(g1.getDimension(), g2.getDimension());
   }
+
+  public static boolean disjoint(Geometry g1, Geometry g2) {
+    return !RelateOp.intersects(g1, g2);
+  };
   
   /**
    * @see Geometry#intersects(Geometry)
