@@ -12,6 +12,7 @@
 package org.locationtech.jts.geom;
 
 import org.locationtech.jts.algorithm.Length;
+import org.locationtech.jts.operation.IsSimpleOp;
 
 /**
  *  Models an OGC-style <code>LineString</code>.
@@ -149,7 +150,7 @@ public class LineString
   }
 
   public boolean isRing() {
-    return isClosed() && isSimple();
+    return isClosed() && IsSimpleOp.isSimple(this);
   }
 
   public String getGeometryType() {
