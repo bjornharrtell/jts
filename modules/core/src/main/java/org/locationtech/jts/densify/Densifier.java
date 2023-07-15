@@ -21,6 +21,7 @@ import org.locationtech.jts.geom.MultiPolygon;
 import org.locationtech.jts.geom.Polygon;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.geom.util.GeometryTransformer;
+import org.locationtech.jts.operation.buffer.BufferOp;
 
 /**
  * Densifies a {@link Geometry} by inserting extra vertices along the line segments
@@ -165,7 +166,7 @@ public class Densifier {
 		 * @return a valid area geometry
 		 */
 		private Geometry createValidArea(Geometry roughAreaGeom) {
-			return roughAreaGeom.buffer(0.0);
+			return BufferOp.bufferOp(roughAreaGeom, 0.0);
 		}
 	}
 
