@@ -13,6 +13,8 @@
 package org.locationtech.jts.algorithm.match;
 
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.operation.overlay.OverlayOp;
+import org.locationtech.jts.operation.union.UnionOp;
 
 /**
  * Measures the degree of similarity between two {@link Geometry}s
@@ -45,8 +47,8 @@ public class AreaSimilarityMeasure
 	
 	public double measure(Geometry g1, Geometry g2)
 	{		
-		double areaInt = g1.intersection(g2).getArea();
-		double areaUnion = g1.union(g2).getArea();
+		double areaInt = OverlayOp.intersection(g1, g2).getArea();
+		double areaUnion = UnionOp.union(g1, g2).getArea();
 		return areaInt / areaUnion;
 	}
 	

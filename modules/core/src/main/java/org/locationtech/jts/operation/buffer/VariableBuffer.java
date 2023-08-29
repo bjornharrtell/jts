@@ -23,6 +23,7 @@ import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.LineSegment;
 import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Polygon;
+import org.locationtech.jts.operation.union.UnaryUnionOp;
 
 /**
  * Creates a buffer polygon with a varying buffer distance 
@@ -241,7 +242,7 @@ public class VariableBuffer {
 
     GeometryCollection partsGeom = geomFactory
         .createGeometryCollection(GeometryFactory.toGeometryArray(parts));
-    Geometry buffer = partsGeom.union();
+    Geometry buffer = UnaryUnionOp.union(partsGeom);
     
     // ensure an empty polygon is returned if needed
     if (buffer.isEmpty()) {
