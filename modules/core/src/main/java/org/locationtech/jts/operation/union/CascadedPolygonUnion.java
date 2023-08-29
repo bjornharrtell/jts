@@ -153,42 +153,6 @@ public class CascadedPolygonUnion
     return union;
   }
 
-  //========================================================
-  /*
-   * The following methods are for experimentation only
-   */
-  
-  private Geometry repeatedUnion(List geoms)
-  {
-  	Geometry union = null;
-  	for (Iterator i = geoms.iterator(); i.hasNext(); ) {
-  		Geometry g = (Geometry) i.next();
-  		if (union == null)
-  			union = g.copy();
-  		else
-  			union = union.union(g);
-  	}
-  	return union;
-  }
-  
-  private Geometry bufferUnion(List geoms)
-  {
-  	GeometryFactory factory = ((Geometry) geoms.get(0)).getFactory();
-  	Geometry gColl = factory.buildGeometry(geoms);
-  	Geometry unionAll = gColl.buffer(0.0);
-    return unionAll;
-  }
-  
-  private Geometry bufferUnion(Geometry g0, Geometry g1)
-  {
-  	GeometryFactory factory = g0.getFactory();
-  	Geometry gColl = factory.createGeometryCollection(new Geometry[] { g0, g1 } );
-  	Geometry unionAll = gColl.buffer(0.0);
-    return unionAll;
-  }
-  
-  //=======================================
-
   /**
    * Unions a list of geometries 
    * by treating the list as a flattened binary tree,

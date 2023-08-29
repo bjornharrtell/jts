@@ -18,6 +18,7 @@ import org.locationtech.jts.geom.CoordinateSequence;
 import org.locationtech.jts.geom.Geometry;
 import org.locationtech.jts.geom.Point;
 import org.locationtech.jts.geom.Triangle;
+import org.locationtech.jts.operation.buffer.BufferOp;
 import org.locationtech.jts.util.Assert;
 
 /**
@@ -106,7 +107,7 @@ public class MinimumBoundingCircle
 		Point centrePoint = input.getFactory().createPoint(centre);
 		if (radius == 0.0)
 			return centrePoint;
-		return centrePoint.buffer(radius);
+		return BufferOp.bufferOp(centrePoint, radius);
 	}
 
   /**

@@ -23,6 +23,7 @@ import org.locationtech.jts.geom.LineString;
 import org.locationtech.jts.geom.Polygonal;
 import org.locationtech.jts.geom.PrecisionModel;
 import org.locationtech.jts.geom.util.GeometryTransformer;
+import org.locationtech.jts.operation.buffer.BufferOp;
 
 /**
  * Snaps the vertices and segments of a {@link Geometry} 
@@ -182,7 +183,7 @@ public class GeometrySnapper
     Geometry result = snappedGeom;
     if (cleanResult && result instanceof Polygonal) {
       // TODO: use better cleaning approach
-      result = snappedGeom.buffer(0);
+      result = BufferOp.bufferOp(snappedGeom, 0);
     }
     return result;
   }
