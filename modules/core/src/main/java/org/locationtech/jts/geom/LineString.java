@@ -150,7 +150,7 @@ public class LineString
   }
 
   public boolean isRing() {
-    return isClosed() && IsSimpleOp.isSimple(this);
+    return isClosed() && new IsSimpleOp().isSimple(this);
   }
 
   public String getGeometryType() {

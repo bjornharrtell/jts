@@ -98,7 +98,7 @@ public class CommonBitsOp {
   public Geometry symDifference(Geometry geom0, Geometry geom1)
   {
     Geometry[] geom = removeCommonBits(geom0, geom1);
-    return computeResultPrecision(OverlayOp.symDifference(geom[0], geom[1]=);
+    return computeResultPrecision(OverlayOp.symDifference(geom[0], geom[1]));
   }
 
   /**

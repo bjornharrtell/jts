@@ -19,7 +19,6 @@
 
     <modules>
         <module>core</module>
-        <module>io</module>
     </modules>
 
     <profiles>
@@ -32,10 +31,7 @@
             </activation>
 
             <modules>
-                <module>example</module>
                 <module>tests</module>
-                <module>app</module>
-                <module>lab</module>
             </modules>
         </profile>
     </profiles>

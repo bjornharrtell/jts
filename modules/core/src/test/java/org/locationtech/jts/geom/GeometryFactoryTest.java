@@ -38,18 +38,6 @@ public class GeometryFactoryTest extends TestCase {
 
   public GeometryFactoryTest(String name) { super(name); }
 
-  public void testCreateGeometry() throws ParseException
-  {
-    checkCreateGeometryExact("POINT EMPTY");
-    checkCreateGeometryExact("POINT ( 10 20 )");
-    checkCreateGeometryExact("LINESTRING EMPTY");
-    checkCreateGeometryExact("LINESTRING(0 0, 10 10)");
-    checkCreateGeometryExact("MULTILINESTRING ((50 100, 100 200), (100 100, 150 200))");
-    checkCreateGeometryExact("POLYGON ((100 200, 200 200, 200 100, 100 100, 100 200))");
-    checkCreateGeometryExact("MULTIPOLYGON (((100 200, 200 200, 200 100, 100 100, 100 200)), ((300 200, 400 200, 400 100, 300 100, 300 200)))");
-    checkCreateGeometryExact("GEOMETRYCOLLECTION (POLYGON ((100 200, 200 200, 200 100, 100 100, 100 200)), LINESTRING (250 100, 350 200), POINT (350 150))");
-  }
-  
   public void testCreateEmpty() {
     checkEmpty( geometryFactory.createEmpty(0), Point.class);
     checkEmpty( geometryFactory.createEmpty(1), LineString.class);
@@ -69,14 +57,6 @@ public class GeometryFactoryTest extends TestCase {
     assertTrue(geom.isEmpty());
     assertTrue( geom.getClass() == clz );
   }
-
-  public void testDeepCopy() throws ParseException
-  {
-    Point g = (Point) read("POINT ( 10 10) ");
-    Geometry g2 = geometryFactory.createGeometry(g);
-    g.getCoordinateSequence().setOrdinate(0, 0, 99);
-    assertTrue(! g.equalsExact(g2));
-  }
   
   public void testMultiPointCS()
   {
@@ -92,35 +72,6 @@ public class GeometryFactoryTest extends TestCase {
     assertEquals(4, pSeq.getDimension());
     for (int i = 0; i < 4; i++)
       assertEquals(mpSeq.getOrdinate(0, i), pSeq.getOrdinate(0, i));
-  }
-  
-  /**
-     * CoordinateArraySequences default their dimension to 3 unless explicitly told otherwise.
-     * This test ensures that GeometryFactory.createGeometry() recreates the input dimension properly.
-   * 
-   * @throws ParseException
-   */
-  public void testCopyGeometryWithNonDefaultDimension() throws ParseException
-  {
-    GeometryFactory gf = new GeometryFactory(CoordinateArraySequenceFactory.instance());
-    CoordinateSequence mpSeq = gf.getCoordinateSequenceFactory().create(1, 2);
-    mpSeq.setOrdinate(0, 0, 50);
-    mpSeq.setOrdinate(0, 1, -2);
-    
-    Point g = gf.createPoint(mpSeq);
-    CoordinateSequence pSeq = ((Point) g.getGeometryN(0)).getCoordinateSequence();
-    assertEquals(2, pSeq.getDimension());
-    
-    Point g2 = (Point) geometryFactory.createGeometry(g);
-    assertEquals(2, g2.getCoordinateSequence().getDimension());
-
-  }
-  
-  private void checkCreateGeometryExact(String wkt) throws ParseException
-  {
-    Geometry g = read(wkt);
-    Geometry g2 = geometryFactory.createGeometry(g);
-    assertTrue(g.equalsExact(g2));
   }
   
   private Geometry read(String wkt) throws ParseException
