@@ -13,6 +13,9 @@
 package org.locationtech.jts.precision;
 
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.operation.buffer.BufferOp;
+import org.locationtech.jts.operation.overlay.OverlayOp;
+import org.locationtech.jts.operation.union.UnionOp;
 
 /**
   * Provides versions of Geometry spatial functions which use
@@ -32,7 +35,7 @@ public class EnhancedPrecisionOp
   {
     RuntimeException originalEx;
     try {
-      Geometry result = geom0.intersection(geom1);
+      Geometry result = OverlayOp.intersection(geom0, geom1);
       return result;
     }
     catch (RuntimeException ex)
@@ -67,7 +70,7 @@ public class EnhancedPrecisionOp
   {
     RuntimeException originalEx;
     try {
-      Geometry result = geom0.union(geom1);
+      Geometry result = UnionOp.union(geom0, geom1);
       return result;
     }
     catch (RuntimeException ex)
@@ -102,7 +105,7 @@ public class EnhancedPrecisionOp
   {
     RuntimeException originalEx;
     try {
-      Geometry result = geom0.difference(geom1);
+      Geometry result = OverlayOp.difference(geom0, geom1);
       return result;
     }
     catch (RuntimeException ex)
@@ -137,7 +140,7 @@ public class EnhancedPrecisionOp
   {
     RuntimeException originalEx;
     try {
-      Geometry result = geom0.symDifference(geom1);
+      Geometry result = OverlayOp.symDifference(geom0, geom1);
       return result;
     }
     catch (RuntimeException ex)
@@ -175,7 +178,7 @@ public class EnhancedPrecisionOp
   {
     RuntimeException originalEx;
     try {
-      Geometry result = geom.buffer(distance);
+      Geometry result = BufferOp.bufferOp(geom, distance);
       return result;
     }
     catch (RuntimeException ex)

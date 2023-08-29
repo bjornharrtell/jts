@@ -13,6 +13,9 @@
 package org.locationtech.jts.precision;
 
 import org.locationtech.jts.geom.Geometry;
+import org.locationtech.jts.operation.buffer.BufferOp;
+import org.locationtech.jts.operation.overlay.OverlayOp;
+import org.locationtech.jts.operation.union.UnionOp;
 
 /**
  * Provides versions of Geometry spatial functions which use
@@ -58,7 +61,7 @@ public class CommonBitsOp {
   public Geometry intersection(Geometry geom0, Geometry geom1)
   {
     Geometry[] geom = removeCommonBits(geom0, geom1);
-    return computeResultPrecision(geom[0].intersection(geom[1]));
+    return computeResultPrecision(OverlayOp.intersection(geom[0], geom[1]));
   }
 
   /**
@@ -70,7 +73,7 @@ public class CommonBitsOp {
   public Geometry union(Geometry geom0, Geometry geom1)
   {
     Geometry[] geom = removeCommonBits(geom0, geom1);
-    return computeResultPrecision(geom[0].union(geom[1]));
+    return computeResultPrecision(UnionOp.union(geom[0], geom[1]));
   }
 
   /**
@@ -82,7 +85,7 @@ public class CommonBitsOp {
   public Geometry difference(Geometry geom0, Geometry geom1)
   {
     Geometry[] geom = removeCommonBits(geom0, geom1);
-    return computeResultPrecision(geom[0].difference(geom[1]));
+    return computeResultPrecision(OverlayOp.difference(geom[0], geom[1]));
   }
 
   /**
@@ -95,7 +98,7 @@ public class CommonBitsOp {
   public Geometry symDifference(Geometry geom0, Geometry geom1)
   {
     Geometry[] geom = removeCommonBits(geom0, geom1);
-    return computeResultPrecision(geom[0].symDifference(geom[1]));
+    return computeResultPrecision(OverlayOp.symDifference(geom[0], geom[1]=);
   }
 
   /**
@@ -108,7 +111,7 @@ public class CommonBitsOp {
   public Geometry buffer(Geometry geom0, double distance)
   {
     Geometry geom = removeCommonBits(geom0);
-    return computeResultPrecision(geom.buffer(distance));
+    return computeResultPrecision(BufferOp.bufferOp(geom, distance));
   }
 
   /**
