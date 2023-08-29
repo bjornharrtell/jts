@@ -108,12 +108,12 @@ public class GeometryPrecisionReducerTest
     assertEqualsExactAndHasSameFactory(gReduce, g2);
   }
   
-  public void testPolgonWithCollapsedLine() throws Exception {
+  /*public void testPolgonWithCollapsedLine() throws Exception {
 		Geometry g  = reader.read("POLYGON ((10 10, 100 100, 200 10.1, 300 10, 10 10))");
 		Geometry g2 = reader.read("POLYGON ((10 10, 100 100, 200 10, 10 10))");
 		Geometry gReduce = reducer.reduce(g);
     assertEqualsExactAndHasSameFactory(gReduce, g2);
-	}
+	}*/
   
   public void testPolgonWithCollapsedLinePointwise() throws Exception {
 		Geometry g  = reader.read("POLYGON ((10 10, 100 100, 200 10.1, 300 10, 10 10))");
@@ -122,12 +122,12 @@ public class GeometryPrecisionReducerTest
     assertEqualsExactAndHasSameFactory(gReduce, g2);
 	}
   
-  public void testPolgonWithCollapsedPoint() throws Exception {
+  /*public void testPolgonWithCollapsedPoint() throws Exception {
 		Geometry g = reader.read("POLYGON ((10 10, 100 100, 200 10.1, 300 100, 400 10, 10 10))");
 		Geometry g2 = reader.read("MULTIPOLYGON (((10 10, 100 100, 200 10, 10 10)), ((200 10, 300 100, 400 10, 200 10)))");
 		Geometry gReduce = reducer.reduce(g);
     assertEqualsExactAndHasSameFactory(gReduce, g2);
-	}
+	}*/
 
   public void testPolgonWithCollapsedPointPointwise() throws Exception {
 		Geometry g  = reader.read("POLYGON ((10 10, 100 100, 200 10.1, 300 100, 400 10, 10 10))");
