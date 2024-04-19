@@ -127,7 +127,7 @@ public class RelateOp
       boolean r = false;
       for (int i = 0 ; i < g1.getNumGeometries() ; i++) {
         for (int j = 0 ; j < g2.getNumGeometries() ; j++) {
-          if (g1.getGeometryN(i).intersects(g2.getGeometryN(j))) {
+          if (RelateOp.intersects(g1.getGeometryN(i), g2.getGeometryN(j))) {
             return true;
           }
         }
